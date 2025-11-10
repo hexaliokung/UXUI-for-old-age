@@ -28,13 +28,29 @@ export default function EmergencyHelpPage({ onSubmit, onBack }: EmergencyHelpPag
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-red-50 to-background">
       {/* Header */}
+            {/* Header */}
       <div className="bg-destructive text-white p-4 sm:p-8 flex items-center justify-between shadow-xl">
-        <button onClick={onBack} className="text-2xl sm:text-4xl font-bold hover:opacity-80 transition-all min-w-[80px] sm:min-w-[120px] text-left">
+        <button onClick={onBack} className="text-xl sm:text-4xl font-bold hover:opacity-80 transition-all min-w-16 sm:min-w-[120px] text-left">
           ← กลับ
         </button>
-        <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-center leading-tight">ขอความช่วยเหลือฉุกเฉิน</h1>
-        <div className="w-[80px] sm:w-[120px]" />
+        <h1 className="text-lg sm:text-4xl md:text-5xl font-bold text-center leading-tight px-2">ขอความช่วยเหลือฉุกเฉิน</h1>
+        <div className="w-16 sm:w-[120px]" />
       </div>
+
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8 gap-5 sm:gap-10 md:p-12">
+        {/* Big SOS Button */}
+        <div className="text-center">
+          <p className="text-xl sm:text-4xl font-bold mb-4 sm:mb-8 text-foreground leading-tight px-2">กดปุ่มเพื่อขอความช่วยเหลือ</p>
+          <button
+            onClick={handleSOSClick}
+            className={`w-36 h-36 sm:w-56 sm:h-56 rounded-full font-bold text-4xl sm:text-6xl shadow-2xl transition-all duration-200 transform hover:scale-110 border-8 ${
+              sosPressed ? "bg-green-500 text-white scale-110 border-green-600" : "bg-destructive hover:bg-destructive/90 text-white border-destructive-foreground/20 animate-pulse"
+            }`}
+          >
+            {sosPressed ? "✅" : "SOS"}
+          </button>
+        </div>
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8 gap-6 sm:gap-10 md:p-12">
@@ -54,13 +70,13 @@ export default function EmergencyHelpPage({ onSubmit, onBack }: EmergencyHelpPag
         {!sosPressed && (
           <>
             {/* Quick Action Buttons */}
-            <div className="w-full max-w-2xl space-y-4 sm:space-y-6">
-              <button className="w-full bg-secondary/80 hover:bg-secondary text-secondary-foreground rounded-2xl sm:rounded-3xl p-6 sm:p-10 font-bold text-2xl sm:text-3xl shadow-2xl transition-all flex items-center justify-center gap-3 sm:gap-5 border-4 border-secondary/30 active:scale-98 min-h-[100px] sm:min-h-[140px]">
+            <div className="w-full max-w-2xl space-y-3 sm:space-y-6">
+              <button className="w-full bg-secondary/80 hover:bg-secondary text-secondary-foreground rounded-2xl sm:rounded-3xl p-5 sm:p-10 font-bold text-xl sm:text-3xl shadow-2xl transition-all flex items-center justify-center gap-3 sm:gap-5 border-4 border-secondary/30 active:scale-98 min-h-[90px] sm:min-h-[140px]">
                 <span className="text-4xl sm:text-6xl">📍</span>
                 <span>ส่งตำแหน่งของฉัน</span>
               </button>
 
-              <button className="w-full bg-accent/80 hover:bg-accent text-accent-foreground rounded-2xl sm:rounded-3xl p-6 sm:p-10 font-bold text-2xl sm:text-3xl shadow-2xl transition-all flex items-center justify-center gap-3 sm:gap-5 border-4 border-accent/30 active:scale-98 min-h-[100px] sm:min-h-[140px]">
+              <button className="w-full bg-accent/80 hover:bg-accent text-accent-foreground rounded-2xl sm:rounded-3xl p-5 sm:p-10 font-bold text-xl sm:text-3xl shadow-2xl transition-all flex items-center justify-center gap-3 sm:gap-5 border-4 border-accent/30 active:scale-98 min-h-[90px] sm:min-h-[140px]">
                 <span className="text-4xl sm:text-6xl">📞</span>
                 <span>โทรหาครอบครัว</span>
               </button>
@@ -68,23 +84,23 @@ export default function EmergencyHelpPage({ onSubmit, onBack }: EmergencyHelpPag
 
             {/* Emergency Contacts */}
             <div className="w-full max-w-2xl">
-              <p className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6 text-foreground text-center">ติดต่อด่วน</p>
+              <p className="text-2xl sm:text-4xl font-bold mb-3 sm:mb-6 text-foreground text-center">ติดต่อด่วน</p>
               <div className="space-y-3 sm:space-y-5">
                 {emergencyContacts.map((contact) => (
                   <button
                     key={contact.id}
                     onClick={() => setSelectedContact(contact.id)}
-                    className={`w-full rounded-xl sm:rounded-2xl p-5 sm:p-8 font-bold text-xl sm:text-2xl transition-all shadow-xl border-4 ${
+                    className={`w-full rounded-xl sm:rounded-2xl p-4 sm:p-8 font-bold text-lg sm:text-2xl transition-all shadow-xl border-4 ${
                       selectedContact === contact.id
                         ? "bg-primary text-white border-primary scale-105"
                         : "bg-card text-foreground border-border hover:border-primary"
                     }`}
                   >
-                    <div className="flex items-center gap-4 sm:gap-6">
-                      <span className="text-5xl sm:text-6xl">{contact.icon}</span>
-                      <div className="text-left flex-1">
-                        <p className="font-bold text-2xl sm:text-3xl mb-1 sm:mb-2">{contact.name}</p>
-                        <p className="text-xl sm:text-2xl opacity-90">{contact.phone}</p>
+                    <div className="flex items-center gap-3 sm:gap-6">
+                      <span className="text-4xl sm:text-6xl">{contact.icon}</span>
+                      <div className="text-left flex-1 min-w-0">
+                        <p className="font-bold text-xl sm:text-3xl mb-1 sm:mb-2 truncate">{contact.name}</p>
+                        <p className="text-lg sm:text-2xl opacity-90">{contact.phone}</p>
                       </div>
                     </div>
                   </button>
@@ -93,8 +109,8 @@ export default function EmergencyHelpPage({ onSubmit, onBack }: EmergencyHelpPag
             </div>
 
             {/* Info Box */}
-            <div className="w-full max-w-2xl bg-yellow-100 rounded-2xl sm:rounded-3xl p-6 sm:p-8 border-4 border-yellow-400 shadow-lg">
-              <p className="text-center text-2xl sm:text-3xl font-bold text-foreground leading-relaxed">
+            <div className="w-full max-w-2xl bg-yellow-100 rounded-2xl sm:rounded-3xl p-5 sm:p-8 border-4 border-yellow-400 shadow-lg">
+              <p className="text-center text-xl sm:text-3xl font-bold text-foreground leading-relaxed">
                 ⚠️ กดปุ่ม SOS เพื่อแจ้งเหตุฉุกเฉิน
               </p>
             </div>
