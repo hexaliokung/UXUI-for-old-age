@@ -28,7 +28,6 @@ export default function EmergencyHelpPage({ onSubmit, onBack }: EmergencyHelpPag
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-red-50 to-background">
       {/* Header */}
-            {/* Header */}
       <div className="bg-destructive text-white p-4 sm:p-8 flex items-center justify-between shadow-xl">
         <button onClick={onBack} className="text-xl sm:text-4xl font-bold hover:opacity-80 transition-all min-w-16 sm:min-w-[120px] text-left">
           ← กลับ
@@ -45,21 +44,6 @@ export default function EmergencyHelpPage({ onSubmit, onBack }: EmergencyHelpPag
           <button
             onClick={handleSOSClick}
             className={`w-36 h-36 sm:w-56 sm:h-56 rounded-full font-bold text-4xl sm:text-6xl shadow-2xl transition-all duration-200 transform hover:scale-110 border-8 ${
-              sosPressed ? "bg-green-500 text-white scale-110 border-green-600" : "bg-destructive hover:bg-destructive/90 text-white border-destructive-foreground/20 animate-pulse"
-            }`}
-          >
-            {sosPressed ? "✅" : "SOS"}
-          </button>
-        </div>
-
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8 gap-6 sm:gap-10 md:p-12">
-        {/* Big SOS Button */}
-        <div className="text-center">
-          <p className="text-2xl sm:text-4xl font-bold mb-6 sm:mb-8 text-foreground leading-tight px-2">กดปุ่มเพื่อขอความช่วยเหลือ</p>
-          <button
-            onClick={handleSOSClick}
-            className={`w-40 h-40 sm:w-56 sm:h-56 rounded-full font-bold text-5xl sm:text-6xl shadow-2xl transition-all duration-200 transform hover:scale-110 border-8 ${
               sosPressed ? "bg-green-500 text-white scale-110 border-green-600" : "bg-destructive hover:bg-destructive/90 text-white border-destructive-foreground/20 animate-pulse"
             }`}
           >
