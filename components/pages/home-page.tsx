@@ -10,9 +10,9 @@ export default function HomePage({ onEmergency, onReport, onNews }: HomePageProp
   return (
     <div className="flex flex-col min-h-screen">
       {/* Welcome Banner */}
-      <div className="bg-gradient-to-r from-primary via-primary/90 to-primary/80 text-primary-foreground p-5 sm:p-10 text-center shadow-lg">
-        <h1 className="text-3xl sm:text-6xl md:text-7xl font-bold mb-2 sm:mb-4">ยินดีต้อนรับ</h1>
-        <p className="text-xl sm:text-3xl md:text-4xl font-semibold">ระบบดูแลชุมชน</p>
+      <div className="bg-gradient-to-r from-primary via-primary/90 to-primary/80 text-primary-foreground p-4 sm:p-8 text-center shadow-lg">
+        <h1 className="text-2xl sm:text-5xl md:text-6xl font-bold mb-1 sm:mb-3">ยินดีต้อนรับ</h1>
+        <p className="text-lg sm:text-2xl md:text-3xl font-semibold">ระบบดูแลชุมชน</p>
       </div>
 
       {/* Main Content */}

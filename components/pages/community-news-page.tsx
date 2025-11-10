@@ -51,12 +51,12 @@ export default function CommunityNewsPage({ onBack }: CommunityNewsPageProps) {
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-green-50 to-background">
       {/* Header */}
-      <div className="bg-accent text-white p-4 sm:p-8 flex items-center justify-between shadow-xl">
-        <button onClick={onBack} className="text-xl sm:text-4xl font-bold hover:opacity-80 transition-all min-w-16 sm:min-w-[120px] text-left">
+      <div className="bg-accent text-white p-3 sm:p-6 flex items-center justify-between shadow-xl">
+        <button onClick={onBack} className="text-lg sm:text-3xl font-bold hover:opacity-80 transition-all min-w-14 sm:min-w-[100px] text-left">
           ← กลับ
         </button>
-        <h1 className="text-lg sm:text-4xl md:text-5xl font-bold text-center leading-tight px-2">ข่าวสารชุมชน</h1>
-        <div className="w-16 sm:w-[120px]" />
+        <h1 className="text-base sm:text-3xl md:text-4xl font-bold text-center leading-tight px-2">ข่าวสารชุมชน</h1>
+        <div className="w-14 sm:w-[100px]" />
       </div>
 
       {/* Main Content */}
