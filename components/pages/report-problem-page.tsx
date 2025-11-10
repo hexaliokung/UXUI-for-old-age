@@ -34,7 +34,6 @@ export default function ReportProblemPage({ onSubmit, onBack }: ReportProblemPag
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-blue-50 to-background">
       {/* Header */}
-            {/* Header */}
       <div className="bg-secondary text-white p-4 sm:p-8 flex items-center justify-between shadow-xl">
         <button onClick={onBack} className="text-xl sm:text-4xl font-bold hover:opacity-80 transition-all min-w-16 sm:min-w-[120px] text-left">
           ← กลับ
@@ -60,29 +59,6 @@ export default function ReportProblemPage({ onSubmit, onBack }: ReportProblemPag
                 <div className="flex flex-col items-center gap-2 sm:gap-4">
                   <span className="text-4xl sm:text-6xl">{problem.icon}</span>
                   <span className="text-sm sm:text-xl text-center leading-tight">{problem.name}</span>
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col p-4 sm:p-8 md:p-12 overflow-y-auto max-w-3xl mx-auto w-full">
-        {/* Problem Type Selection */}
-        <div className="mb-8 sm:mb-10">
-          <p className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6 text-foreground">ปัญหาที่พบคืออะไร?</p>
-          <div className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3">
-            {problemTypes.map((problem) => (
-              <button
-                key={problem.id}
-                onClick={() => setSelectedProblem(problem.id)}
-                className={`rounded-xl sm:rounded-2xl p-5 sm:p-8 font-bold text-lg sm:text-xl transition-all border-4 min-h-[130px] sm:min-h-[160px] ${
-                  selectedProblem === problem.id ? "border-secondary scale-105 shadow-2xl" : "border-border"
-                } ${problem.color}`}
-              >
-                <div className="flex flex-col items-center gap-2 sm:gap-4">
-                  <span className="text-5xl sm:text-6xl">{problem.icon}</span>
-                  <span className="text-base sm:text-xl text-center leading-tight">{problem.name}</span>
                 </div>
               </button>
             ))}
