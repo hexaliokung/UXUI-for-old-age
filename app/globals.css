@@ -129,8 +129,15 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-size: 18px; /* ขนาดตัวอักษรเริ่มต้นใหญ่ขึ้นสำหรับผู้สูงอายุ */
-    line-height: 1.6; /* ระยะห่างระหว่างบรรทัดเพิ่มขึ้น */
+    font-size: 16px; /* ขนาดตัวอักษรเริ่มต้นสำหรับมือถือ */
+    line-height: 1.6;
+  }
+
+  /* สำหรับหน้าจอใหญ่ */
+  @media (min-width: 640px) {
+    body {
+      font-size: 18px; /* ขนาดตัวอักษรใหญ่ขึ้นสำหรับแท็บเล็ตและเดสก์ท็อป */
+    }
   }
 
   /* Accessibility: larger fonts and better spacing for elderly users */
@@ -151,7 +158,14 @@
   /* ปรับ input และ textarea ให้อ่านง่ายขึ้น */
   input,
   textarea {
-    font-size: 1.25rem; /* ข้อความใน input ใหญ่ขึ้น */
+    font-size: 1.125rem; /* ข้อความใน input ใหญ่ขึ้น */
     line-height: 1.5;
+  }
+
+  @media (min-width: 640px) {
+    input,
+    textarea {
+      font-size: 1.25rem; /* ใหญ่ขึ้นสำหรับหน้าจอใหญ่ */
+    }
   }
 }
