@@ -96,7 +96,7 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
         {/* Help Text */}
         <div className="mt-6 sm:mt-10 p-5 sm:p-8 bg-accent/20 border-4 border-accent rounded-2xl">
           <p className="text-center text-lg sm:text-2xl font-bold text-foreground leading-relaxed">
-            👨‍🤝‍👨 กรุณาใส่เบอร์โทรศัพท์ของท่าน<br className="sm:hidden" />เพื่อเข้าสู่ระบบ
+            กรุณาใส่เบอร์โทรศัพท์ของท่าน<br className="sm:hidden" />เพื่อเข้าสู่ระบบ
           </p>
         </div>
 
