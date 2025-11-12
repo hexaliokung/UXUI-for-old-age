@@ -53,19 +53,6 @@ export default function EmergencyHelpPage({ onSubmit, onBack }: EmergencyHelpPag
 
         {!sosPressed && (
           <>
-            {/* Quick Action Buttons */}
-            <div className="w-full max-w-2xl space-y-3 sm:space-y-6">
-              <button className="w-full bg-secondary/80 hover:bg-secondary text-secondary-foreground rounded-2xl sm:rounded-3xl p-5 sm:p-10 font-bold text-xl sm:text-3xl shadow-2xl transition-all flex items-center justify-center gap-3 sm:gap-5 border-4 border-secondary/30 active:scale-98 min-h-[90px] sm:min-h-[140px]">
-                <span className="text-4xl sm:text-6xl">📍</span>
-                <span>ส่งตำแหน่งของฉัน</span>
-              </button>
-
-              <button className="w-full bg-accent/80 hover:bg-accent text-accent-foreground rounded-2xl sm:rounded-3xl p-5 sm:p-10 font-bold text-xl sm:text-3xl shadow-2xl transition-all flex items-center justify-center gap-3 sm:gap-5 border-4 border-accent/30 active:scale-98 min-h-[90px] sm:min-h-[140px]">
-                <span className="text-4xl sm:text-6xl">📞</span>
-                <span>โทรหาครอบครัว</span>
-              </button>
-            </div>
-
             {/* Emergency Contacts */}
             <div className="w-full max-w-2xl">
               <p className="text-2xl sm:text-4xl font-bold mb-3 sm:mb-6 text-foreground text-center">ติดต่อด่วน</p>
