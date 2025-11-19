@@ -1,20 +1,67 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { getElderlyRelatives, getRelativeElderlyList, type ElderlyUser, type RelativeUser } from "@/lib/mock-users"
 
 interface SettingsPageProps {
+  userId: string
   userName: string
   userPhone: string
+  userRole: "elderly" | "relative"
   onBack: () => void
   onLogout: () => void
 }
 
-export default function SettingsPage({ userName, userPhone, onBack, onLogout }: SettingsPageProps) {
-  const [relatives, setRelatives] = useState([
-    { id: 1, name: "ลูกสาว: พริม", phone: "081-234-5678" },
-    { id: 2, name: "เพื่อนบ้าน: มานะ", phone: "081-987-6543" },
-  ])
+interface RelativeContact {
+  id: string
+  name: string
+  phone: string
+  relationship?: string
+}
+
+export default function SettingsPage({ userId, userName, userPhone, userRole, onBack, onLogout }: SettingsPageProps) {
+  const [relatives, setRelatives] = useState<RelativeContact[]>([])
+
+  // โหลดข้อมูลญาติเมื่อ component mount
+  useEffect(() => {
+    if (userRole === "elderly") {
+      // ถ้าเป็นผู้สูงอายุ ให้แสดงรายชื่อญาติที่ดูแล
+      const relativeList = getElderlyRelatives(userId)
+      setRelatives(relativeList.map(r => ({
+        id: r.id,
+        name: `${r.relationship}: ${r.name}`,
+        phone: r.phoneNumber,
+        relationship: r.relationship
+      })))
+    } else if (userRole === "relative") {
+      // ถ้าเป็นญาติ ให้แสดงรายชื่อผู้สูงอายุที่ดูแล
+      const elderlyList = getRelativeElderlyList(userId)
+      setRelatives(elderlyList.map(e => ({
+        id: e.id,
+        name: e.name,
+        phone: e.phoneNumber,
+        relationship: "ผู้สูงอายุที่ดูแล"
+      })))
+    }
+  }, [userId, userRole])
   const [notifications, setNotifications] = useState(true)
+  const [showAddRelativeDialog, setShowAddRelativeDialog] = useState(false)
+  const [newRelativeName, setNewRelativeName] = useState("")
+  const [newRelativePhone, setNewRelativePhone] = useState("")
+
+  const handleAddRelative = () => {
+    if (newRelativeName.trim() && newRelativePhone.trim()) {
+      const newId = relatives.length > 0 ? Math.max(...relatives.map(r => r.id)) + 1 : 1
+      setRelatives([...relatives, {
+        id: newId,
+        name: newRelativeName,
+        phone: newRelativePhone
+      }])
+      setNewRelativeName("")
+      setNewRelativePhone("")
+      setShowAddRelativeDialog(false)
+    }
+  }
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -53,11 +100,11 @@ export default function SettingsPage({ userName, userPhone, onBack, onLogout }: 
             </div>
           </div>
 
-          {/* จัดการญาติ */}
+          {/* จัดการญาติ/ผู้สูงอายุที่ดูแล */}
           <div className="bg-card rounded-2xl p-5 sm:p-8 border-4 border-border shadow-lg">
             <h2 className="text-xl sm:text-3xl font-bold text-foreground mb-4 sm:mb-6 flex items-center gap-3">
               <span className="text-3xl sm:text-5xl">👨‍👩‍👧‍👦</span>
-              จัดการญาติ
+              {userRole === "elderly" ? "จัดการญาติ" : "ผู้สูงอายุที่ดูแล"}
             </h2>
             <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
               {relatives.map((relative) => (
@@ -78,9 +125,14 @@ export default function SettingsPage({ userName, userPhone, onBack, onLogout }: 
                 </div>
               ))}
             </div>
-            <button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl p-4 sm:p-6 font-bold text-lg sm:text-2xl shadow-lg transition-all active:scale-98">
-              + เพิ่มญาติ
-            </button>
+            {userRole === "elderly" && (
+              <button
+                onClick={() => setShowAddRelativeDialog(true)}
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl p-4 sm:p-6 font-bold text-lg sm:text-2xl shadow-lg transition-all active:scale-98"
+              >
+                + เพิ่มญาติ
+              </button>
+            )}
           </div>
 
           {/* การแจ้งเตือน */}
@@ -131,6 +183,67 @@ export default function SettingsPage({ userName, userPhone, onBack, onLogout }: 
           </button>
         </div>
       </div>
+
+      {/* Add Relative Dialog */}
+      {showAddRelativeDialog && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <div className="bg-card max-w-2xl w-full rounded-2xl shadow-2xl border-4 border-border">
+            <div className="p-6 sm:p-10">
+              <h2 className="text-2xl sm:text-4xl font-bold text-foreground mb-6 sm:mb-8 text-center">
+                เพิ่มญาติ
+              </h2>
+
+              {/* Name Input */}
+              <div className="mb-5 sm:mb-6">
+                <label className="block text-xl sm:text-2xl font-bold text-foreground mb-3">
+                  ชื่อญาติ
+                </label>
+                <input
+                  type="text"
+                  value={newRelativeName}
+                  onChange={(e) => setNewRelativeName(e.target.value)}
+                  placeholder="เช่น ลูกสาว: สมใจ"
+                  className="w-full px-4 sm:px-6 py-4 sm:py-6 text-lg sm:text-2xl border-4 border-border rounded-xl bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/30 transition-all"
+                />
+              </div>
+
+              {/* Phone Input */}
+              <div className="mb-6 sm:mb-8">
+                <label className="block text-xl sm:text-2xl font-bold text-foreground mb-3">
+                  เบอร์โทรศัพท์
+                </label>
+                <input
+                  type="tel"
+                  value={newRelativePhone}
+                  onChange={(e) => setNewRelativePhone(e.target.value)}
+                  placeholder="081-234-5678"
+                  className="w-full px-4 sm:px-6 py-4 sm:py-6 text-lg sm:text-2xl border-4 border-border rounded-xl bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/30 transition-all"
+                />
+              </div>
+
+              {/* Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <button
+                  onClick={handleAddRelative}
+                  className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl p-5 sm:p-6 font-bold text-xl sm:text-2xl shadow-xl transition-all active:scale-98"
+                >
+                  ✓ เพิ่มญาติ
+                </button>
+                <button
+                  onClick={() => {
+                    setShowAddRelativeDialog(false)
+                    setNewRelativeName("")
+                    setNewRelativePhone("")
+                  }}
+                  className="flex-1 bg-muted hover:bg-muted/80 text-foreground rounded-xl p-5 sm:p-6 font-bold text-xl sm:text-2xl border-2 border-border transition-all active:scale-98"
+                >
+                  ✕ ยกเลิก
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

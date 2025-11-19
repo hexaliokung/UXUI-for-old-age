@@ -16,7 +16,7 @@ const problemTypes = [
   { id: 6, name: "อื่นๆ", icon: "❓", color: "bg-purple-100" },
 ]
 
-const locations = ["ใกล้วัดบ้านกลาง", "ศาลาหมู่บ้าน", "ตลาดหลัก", "บริเวณโรงเรียน", "ถนนหน้าวัด", "บ้านของฉัน"]
+const locations = ["ส่งตำแหน่งของฉัน", "ใกล้วัดบ้านกลาง", "ศาลาหมู่บ้าน", "ตลาดหลัก", "บริเวณโรงเรียน", "ถนนหน้าวัด", "บ้านของฉัน"]
 
 export default function ReportProblemPage({ onSubmit, onBack }: ReportProblemPageProps) {
   const [selectedProblem, setSelectedProblem] = useState<number | null>(null)

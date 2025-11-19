@@ -5,9 +5,27 @@ import { Card, CardContent } from "@/components/ui/card"
 
 interface ConfirmationPageProps {
   onBack: () => void
+  type?: "emergency" | "report" | "activity"
 }
 
-export default function ConfirmationPage({ onBack }: ConfirmationPageProps) {
+export default function ConfirmationPage({ onBack, type = "emergency" }: ConfirmationPageProps) {
+  const messages = {
+    emergency: {
+      title: "ส่งข้อความเรียบร้อยแล้ว",
+      subtitle: "ระบบได้รับการแจ้งเหตุของคุณแล้ว 🎉"
+    },
+    report: {
+      title: "ส่งรายงานเรียบร้อยแล้ว",
+      subtitle: "ระบบได้รับการแจ้งปัญหาของคุณแล้ว 🎉"
+    },
+    activity: {
+      title: "ส่งกิจกรรมเรียบร้อยแล้ว",
+      subtitle: "รอการอนุมัติสักครู่นะคะ ⏳"
+    }
+  }
+
+  const message = messages[type]
+
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 items-center justify-center p-4 sm:p-8">
       {/* Confirmation Card */}
@@ -16,8 +34,8 @@ export default function ConfirmationPage({ onBack }: ConfirmationPageProps) {
         <div className="w-24 h-24 sm:w-40 sm:h-40 mx-auto mb-5 sm:mb-8 rounded-full bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center shadow-2xl animate-bounce">
           <span className="text-6xl sm:text-9xl">✅</span>
         </div>
-        <h1 className="text-2xl sm:text-5xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-4 sm:mb-6 text-pretty leading-tight px-2">ส่งข้อความเรียบร้อยแล้ว</h1>
-        <p className="text-xl sm:text-3xl font-bold bg-gradient-to-r from-green-500 to-teal-500 bg-clip-text text-transparent mb-6 sm:mb-10">ระบบได้รับการแจ้งเหตุของคุณแล้ว 🎉</p>
+        <h1 className="text-2xl sm:text-5xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-4 sm:mb-6 text-pretty leading-tight px-2">{message.title}</h1>
+        <p className="text-xl sm:text-3xl font-bold bg-gradient-to-r from-green-500 to-teal-500 bg-clip-text text-transparent mb-6 sm:mb-10">{message.subtitle}</p>
 
         {/* Back Button */}
         <Button

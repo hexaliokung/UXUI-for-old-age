@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 
 interface LoginPageProps {
-  onLoginSuccess: (userId: string, name: string, phoneNumber: string) => void
+  onLoginSuccess: (userId: string, name: string, phoneNumber: string, role: "elderly" | "relative") => void
 }
 
 export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
@@ -71,8 +71,8 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
       try {
         const result = await authenticateUser(phoneNumber)
 
-        if (result.success) {
-          onLoginSuccess(result.user.id, result.user.name, result.user.phoneNumber)
+        if (result.success && result.user) {
+          onLoginSuccess(result.user.id, result.user.name, result.user.phoneNumber, result.user.role)
         } else {
           setError("ไม่พบผู้ใช้งาน กรุณาตรวจสอบเบอร์โทร")
           setStep("phone")
@@ -171,9 +171,15 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
 
               {/* Help Text */}
               <div className="mt-6 sm:mt-8 p-5 sm:p-8 bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200 rounded-2xl">
-                <p className="text-center text-lg sm:text-2xl font-bold text-gray-700 leading-relaxed">
+                <p className="text-center text-lg sm:text-2xl font-bold text-gray-700 leading-relaxed mb-3">
                   💡 รหัส OTP ทดสอบ: <span className="text-blue-600">1234</span>
                 </p>
+                <div className="mt-4 pt-4 border-t-2 border-blue-200">
+                  <p className="text-center text-base sm:text-xl font-bold text-gray-600 mb-2">เบอร์ทดสอบผู้สูงอายุ:</p>
+                  <p className="text-center text-sm sm:text-lg text-gray-600">0812345678, 0898765432, 0881234567</p>
+                  <p className="text-center text-base sm:text-xl font-bold text-gray-600 mb-2 mt-3">เบอร์ทดสอบญาติ:</p>
+                  <p className="text-center text-sm sm:text-lg text-gray-600">0891234567, 0862345678, 0923456789, 0854567890, 0875678901</p>
+                </div>
               </div>
             </CardContent>
           </Card>
