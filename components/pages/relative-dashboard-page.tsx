@@ -8,7 +8,7 @@ import { useState, useEffect } from "react"
 interface RelativeDashboardPageProps {
   userId: string
   userName: string
-  onEmergencyAlerts: () => void
+  onEmergency: () => void
   onReportIssue: () => void
   onNews: () => void
   onActivities: () => void
@@ -20,7 +20,7 @@ interface RelativeDashboardPageProps {
 export default function RelativeDashboardPage({
   userId,
   userName,
-  onEmergencyAlerts,
+  onEmergency,
   onReportIssue,
   onNews,
   onActivities,
@@ -46,10 +46,9 @@ export default function RelativeDashboardPage({
   }, [userId])
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50">
+    <div className="flex flex-col min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 text-white p-4 sm:p-8 shadow-2xl relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 animate-pulse" />
+      <div className="bg-primary text-primary-foreground p-4 sm:p-8 shadow-2xl">
         <div className="flex items-center justify-between relative z-10">
           <div>
             <h1 className="text-xl sm:text-4xl font-bold mb-1 drop-shadow-lg">สวัสดี, {userName} 👋</h1>
@@ -91,10 +90,10 @@ export default function RelativeDashboardPage({
                         </div>
                       </div>
                       <div className="flex flex-col gap-2 sm:gap-3">
-                        <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center">
+                        <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-primary flex items-center justify-center">
                           <span className="text-3xl sm:text-5xl">✅</span>
                         </div>
-                        <p className="text-sm sm:text-lg font-bold text-green-600 text-center">ปกติ</p>
+                        <p className="text-sm sm:text-lg font-bold text-primary text-center">ปกติ</p>
                       </div>
                     </div>
                   </CardContent>
@@ -103,14 +102,23 @@ export default function RelativeDashboardPage({
             </div>
           </div>
 
+          {/* ปุ่มฉุกเฉิน - ใหญ่และเด่นที่สุด */}
+          <button
+            onClick={onEmergency}
+            className="w-full rounded-3xl p-6 sm:p-10 font-bold text-2xl sm:text-4xl shadow-2xl hover:shadow-[0_20px_60px_-15px_rgba(211,47,47,0.5)] transition-all duration-300 flex items-center justify-center gap-4 sm:gap-6 active:scale-95 min-h-[120px] sm:min-h-[160px] h-auto bg-destructive hover:bg-destructive/90 text-destructive-foreground border-0 relative overflow-hidden group"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+            <span className="text-5xl sm:text-7xl animate-bounce relative z-10">🆘</span>
+            <span className="relative z-10">ขอความช่วยเหลือฉุกเฉิน</span>
+          </button>
+
           {/* เมนูหลัก */}
           <div className="grid grid-cols-2 gap-4 sm:gap-6">
             {/* ติดตามสถานะคำร้อง */}
             <button
               onClick={onRequestTracking}
-              className="bg-gradient-to-br from-indigo-400 to-purple-600 hover:from-indigo-500 hover:to-purple-700 text-white rounded-2xl p-5 sm:p-8 font-bold text-lg sm:text-2xl shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col items-center gap-3 sm:gap-4 border-0 active:scale-95 min-h-[140px] sm:min-h-[180px] relative overflow-hidden group"
+              className="bg-secondary hover:bg-secondary/90 text-secondary-foreground rounded-2xl p-5 sm:p-8 font-bold text-lg sm:text-2xl shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col items-center gap-3 sm:gap-4 border-0 active:scale-95 min-h-[140px] sm:min-h-[180px]"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center relative z-10">
                 <span className="text-5xl sm:text-7xl">📋</span>
               </div>
@@ -120,33 +128,19 @@ export default function RelativeDashboardPage({
             {/* ตั้งค่าการแจ้งเตือน */}
             <button
               onClick={onNotificationSettings}
-              className="bg-gradient-to-br from-green-400 to-teal-600 hover:from-green-500 hover:to-teal-700 text-white rounded-2xl p-5 sm:p-8 font-bold text-lg sm:text-2xl shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col items-center gap-3 sm:gap-4 border-0 active:scale-95 min-h-[140px] sm:min-h-[180px] relative overflow-hidden group"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-2xl p-5 sm:p-8 font-bold text-lg sm:text-2xl shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col items-center gap-3 sm:gap-4 border-0 active:scale-95 min-h-[140px] sm:min-h-[180px]"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center relative z-10">
                 <span className="text-5xl sm:text-7xl">🔔</span>
               </div>
               <span className="text-center leading-tight relative z-10">ตั้งค่าการแจ้งเตือน</span>
             </button>
 
-            {/* การแจ้งเตือนฉุกเฉิน */}
-            <button
-              onClick={onEmergencyAlerts}
-              className="bg-gradient-to-br from-red-400 to-pink-600 hover:from-red-500 hover:to-pink-700 text-white rounded-2xl p-5 sm:p-8 font-bold text-lg sm:text-2xl shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col items-center gap-3 sm:gap-4 border-0 active:scale-95 min-h-[140px] sm:min-h-[180px] relative overflow-hidden group"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center relative z-10">
-                <span className="text-5xl sm:text-7xl">🚨</span>
-              </div>
-              <span className="text-center leading-tight relative z-10">การแจ้งเตือนฉุกเฉิน</span>
-            </button>
-
             {/* แจ้งปัญหาชุมชน */}
             <button
               onClick={onReportIssue}
-              className="bg-gradient-to-br from-orange-400 to-red-500 hover:from-orange-500 hover:to-red-600 text-white rounded-2xl p-5 sm:p-8 font-bold text-lg sm:text-2xl shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col items-center gap-3 sm:gap-4 border-0 active:scale-95 min-h-[140px] sm:min-h-[180px] relative overflow-hidden group"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-2xl p-5 sm:p-8 font-bold text-lg sm:text-2xl shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col items-center gap-3 sm:gap-4 border-0 active:scale-95 min-h-[140px] sm:min-h-[180px]"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center relative z-10">
                 <span className="text-5xl sm:text-7xl">🛠️</span>
               </div>
@@ -156,9 +150,8 @@ export default function RelativeDashboardPage({
             {/* ข่าวสารชุมชน */}
             <button
               onClick={onNews}
-              className="bg-gradient-to-br from-blue-400 to-indigo-600 hover:from-blue-500 hover:to-indigo-700 text-white rounded-2xl p-5 sm:p-8 font-bold text-lg sm:text-2xl shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col items-center gap-3 sm:gap-4 border-0 active:scale-95 min-h-[140px] sm:min-h-[180px] relative overflow-hidden group"
+              className="bg-secondary hover:bg-secondary/90 text-secondary-foreground rounded-2xl p-5 sm:p-8 font-bold text-lg sm:text-2xl shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col items-center gap-3 sm:gap-4 border-0 active:scale-95 min-h-[140px] sm:min-h-[180px]"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center relative z-10">
                 <span className="text-5xl sm:text-7xl">📢</span>
               </div>
@@ -168,9 +161,8 @@ export default function RelativeDashboardPage({
             {/* กิจกรรมชุมชน */}
             <button
               onClick={onActivities}
-              className="bg-gradient-to-br from-purple-400 to-pink-600 hover:from-purple-500 hover:to-pink-700 text-white rounded-2xl p-5 sm:p-8 font-bold text-lg sm:text-2xl shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col items-center gap-3 sm:gap-4 border-0 active:scale-95 min-h-[140px] sm:min-h-[180px] relative overflow-hidden group"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-2xl p-5 sm:p-8 font-bold text-lg sm:text-2xl shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col items-center gap-3 sm:gap-4 border-0 active:scale-95 min-h-[140px] sm:min-h-[180px]"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center relative z-10">
                 <span className="text-5xl sm:text-7xl">🎉</span>
               </div>
@@ -180,9 +172,8 @@ export default function RelativeDashboardPage({
             {/* ตั้งค่า */}
             <button
               onClick={onSettings}
-              className="bg-gradient-to-br from-gray-400 to-gray-600 hover:from-gray-500 hover:to-gray-700 text-white rounded-2xl p-5 sm:p-8 font-bold text-lg sm:text-2xl shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col items-center gap-3 sm:gap-4 border-0 active:scale-95 min-h-[140px] sm:min-h-[180px] relative overflow-hidden group"
+              className="bg-muted hover:bg-muted/90 text-foreground rounded-2xl p-5 sm:p-8 font-bold text-lg sm:text-2xl shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col items-center gap-3 sm:gap-4 border-0 active:scale-95 min-h-[140px] sm:min-h-[180px]"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center relative z-10">
                 <span className="text-5xl sm:text-7xl">⚙️</span>
               </div>
@@ -193,30 +184,30 @@ export default function RelativeDashboardPage({
           {/* ข้อมูลติดต่อด่วน */}
           <Card className="border-0 shadow-2xl bg-white/80 backdrop-blur-lg">
             <CardContent className="p-5 sm:p-8">
-              <p className="text-xl sm:text-3xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-4 sm:mb-6">📞 ข้อมูลติดต่อด่วน</p>
+              <p className="text-xl sm:text-3xl font-bold text-center text-primary mb-4 sm:mb-6">📞 ข้อมูลติดต่อด่วน</p>
               <div className="space-y-3 sm:space-y-4">
                 <Card className="bg-gradient-to-br from-white to-blue-50 border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
                   <CardContent className="p-4 sm:p-6">
                     <div className="flex items-center gap-3 sm:gap-4">
-                      <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg">
+                      <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-2xl bg-primary flex items-center justify-center shadow-lg">
                         <span className="text-3xl sm:text-5xl">🚓</span>
                       </div>
                       <div className="flex-1">
                         <p className="text-lg sm:text-2xl font-bold text-gray-800">ตำรวจ</p>
-                        <p className="text-xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">191</p>
+                        <p className="text-xl sm:text-3xl font-bold text-primary">191</p>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
-                <Card className="bg-gradient-to-br from-white to-red-50 border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
+                <Card className="bg-card border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
                   <CardContent className="p-4 sm:p-6">
                     <div className="flex items-center gap-3 sm:gap-4">
-                      <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-red-500 to-orange-600 flex items-center justify-center shadow-lg">
+                      <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-2xl bg-destructive flex items-center justify-center shadow-lg">
                         <span className="text-3xl sm:text-5xl">🚒</span>
                       </div>
                       <div className="flex-1">
                         <p className="text-lg sm:text-2xl font-bold text-gray-800">ดับเพลิง</p>
-                        <p className="text-xl sm:text-3xl font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">199</p>
+                        <p className="text-xl sm:text-3xl font-bold text-destructive-foreground">199</p>
                       </div>
                     </div>
                   </CardContent>
@@ -224,12 +215,12 @@ export default function RelativeDashboardPage({
                 <Card className="bg-gradient-to-br from-white to-green-50 border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
                   <CardContent className="p-4 sm:p-6">
                     <div className="flex items-center gap-3 sm:gap-4">
-                      <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-lg">
+                      <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-2xl bg-primary flex items-center justify-center shadow-lg">
                         <span className="text-3xl sm:text-5xl">🚑</span>
                       </div>
                       <div className="flex-1">
                         <p className="text-lg sm:text-2xl font-bold text-gray-800">กู้ภัย</p>
-                        <p className="text-xl sm:text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">1669</p>
+                        <p className="text-xl sm:text-3xl font-bold text-primary">1669</p>
                       </div>
                     </div>
                   </CardContent>

@@ -90,9 +90,9 @@ export default function NotificationSettingsPage({ onBack, userName }: Notificat
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-green-50 to-background">
+    <div className="flex flex-col min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-gradient-to-r from-green-600 to-teal-600 text-white p-3 sm:p-6 shadow-2xl">
+      <div className="bg-primary text-primary-foreground p-3 sm:p-6 shadow-2xl">
         <button
           onClick={onBack}
           className="text-lg sm:text-3xl font-bold hover:opacity-80 transition-all mb-2"
@@ -120,7 +120,7 @@ export default function NotificationSettingsPage({ onBack, userName }: Notificat
                   key={channel.id}
                   className={`border-4 shadow-xl transition-all ${
                     channel.enabled 
-                      ? "border-green-400 bg-gradient-to-br from-white to-green-50" 
+                      ? "border-primary/50 bg-gradient-to-br from-white to-primary/5" 
                       : "border-gray-300 bg-gray-50 opacity-60"
                   }`}
                 >
@@ -137,7 +137,7 @@ export default function NotificationSettingsPage({ onBack, userName }: Notificat
                               ✓ เชื่อมต่อแล้ว: {channel.accountInfo}
                             </p>
                           ) : (
-                            <p className="text-base sm:text-xl text-red-600 font-bold">
+                            <p className="text-base sm:text-xl text-muted-foreground font-bold">
                               ✗ ยังไม่ได้เชื่อมต่อ
                             </p>
                           )}
@@ -150,7 +150,7 @@ export default function NotificationSettingsPage({ onBack, userName }: Notificat
                             onClick={() => toggleChannel(channel.id)}
                             className={`w-16 h-9 sm:w-20 sm:h-12 rounded-full transition-all duration-300 relative ${
                               channel.enabled 
-                                ? "bg-green-500" 
+                                ? "bg-primary" 
                                 : "bg-gray-300"
                             }`}
                           >
@@ -161,13 +161,13 @@ export default function NotificationSettingsPage({ onBack, userName }: Notificat
                         ) : (
                           <Button
                             onClick={() => handleConnect(channel.id)}
-                            className="bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-6 py-2 sm:py-3 text-base sm:text-xl font-bold rounded-xl"
+                            className="bg-primary hover:bg-primary/90 text-primary-foreground px-4 sm:px-6 py-2 sm:py-3 text-base sm:text-xl font-bold rounded-xl"
                           >
                             เชื่อมต่อ
                           </Button>
                         )}
                         <p className={`text-sm sm:text-base font-bold ${
-                          channel.enabled ? "text-green-600" : "text-gray-500"
+                          channel.enabled ? "text-primary" : "text-gray-500"
                         }`}>
                           {channel.enabled ? "เปิดใช้งาน" : "ปิดใช้งาน"}
                         </p>
@@ -200,7 +200,7 @@ export default function NotificationSettingsPage({ onBack, userName }: Notificat
                     key={item.key}
                     className={`flex items-start gap-4 p-4 sm:p-5 rounded-xl border-2 transition-all ${
                       notificationTypes[item.key as keyof typeof notificationTypes]
-                        ? "bg-gradient-to-br from-white to-blue-50 border-blue-300"
+                        ? "bg-gradient-to-br from-white to-primary/5 border-primary/30"
                         : "bg-gray-50 border-gray-300"
                     }`}
                   >
@@ -211,7 +211,7 @@ export default function NotificationSettingsPage({ onBack, userName }: Notificat
                         </h3>
                         <span className={`px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-bold ${
                           item.priority === "สูง" 
-                            ? "bg-red-100 text-red-700"
+                            ? "bg-muted text-muted-foreground"
                             : item.priority === "กลาง"
                             ? "bg-yellow-100 text-yellow-700"
                             : "bg-gray-100 text-gray-700"
@@ -227,7 +227,7 @@ export default function NotificationSettingsPage({ onBack, userName }: Notificat
                       onClick={() => toggleNotificationType(item.key as keyof typeof notificationTypes)}
                       className={`w-16 h-9 sm:w-20 sm:h-12 rounded-full transition-all duration-300 relative flex-shrink-0 ${
                         notificationTypes[item.key as keyof typeof notificationTypes]
-                          ? "bg-blue-500" 
+                          ? "bg-primary" 
                           : "bg-gray-300"
                       }`}
                     >
@@ -270,7 +270,7 @@ export default function NotificationSettingsPage({ onBack, userName }: Notificat
               alert("บันทึกการตั้งค่าเรียบร้อยแล้ว!")
               onBack()
             }}
-            className="w-full bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 text-white py-5 sm:py-8 text-xl sm:text-3xl font-bold rounded-2xl shadow-2xl"
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-5 sm:py-8 text-xl sm:text-3xl font-bold rounded-2xl shadow-2xl"
           >
             💾 บันทึกการตั้งค่า
           </Button>

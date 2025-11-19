@@ -51,10 +51,9 @@ export default function EmergencyHelpPage({ onSubmit, onBack }: EmergencyHelpPag
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-red-50 via-pink-50 to-orange-50">
+    <div className="flex flex-col min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-gradient-to-r from-red-600 via-pink-600 to-orange-600 text-white p-3 sm:p-6 flex items-center justify-between shadow-2xl relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 animate-pulse" />
+      <div className="bg-destructive text-destructive-foreground p-3 sm:p-6 flex items-center justify-between shadow-2xl">
         <button onClick={onBack} className="text-lg sm:text-3xl font-bold hover:opacity-80 transition-all min-w-14 sm:min-w-[100px] text-left relative z-10 hover:scale-110 duration-300">
           ← กลับ
         </button>
@@ -103,7 +102,7 @@ export default function EmergencyHelpPage({ onSubmit, onBack }: EmergencyHelpPag
             />
             <label
               htmlFor="image-upload"
-              className="block w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white rounded-2xl p-5 sm:p-8 font-bold text-xl sm:text-3xl shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-3 sm:gap-5 border-0 cursor-pointer active:scale-95 min-h-[90px] sm:min-h-[120px]"
+              className="block w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground rounded-2xl p-5 sm:p-8 font-bold text-xl sm:text-3xl shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-3 sm:gap-5 border-0 cursor-pointer active:scale-95 min-h-[90px] sm:min-h-[120px]"
             >
               <span className="text-4xl sm:text-6xl">📷</span>
               <span>แนบรูปภาพ</span>
@@ -116,7 +115,7 @@ export default function EmergencyHelpPage({ onSubmit, onBack }: EmergencyHelpPag
             className={`w-full rounded-2xl p-5 sm:p-8 font-bold text-xl sm:text-3xl shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-3 sm:gap-5 border-0 active:scale-95 min-h-[90px] sm:min-h-[120px] ${
               isRecording
                 ? "bg-gradient-to-r from-red-500 to-pink-600 text-white animate-pulse"
-                : "bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 text-white"
+                : "bg-primary hover:bg-primary/90 text-primary-foreground"
             }`}
           >
             <span className="text-4xl sm:text-6xl">🎤</span>

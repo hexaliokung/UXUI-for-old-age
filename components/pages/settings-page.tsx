@@ -328,10 +328,10 @@ export default function SettingsPage({ userId, userName, userPhone, userRole, on
                   <div className="absolute top-0 bottom-0 left-3/4 w-2 bg-gray-400 opacity-30" />
                   
                   {/* Mock Buildings */}
-                  <div className="absolute top-[15%] left-[20%] w-12 h-12 sm:w-16 sm:h-16 bg-blue-300 opacity-50 rounded" />
-                  <div className="absolute top-[35%] left-[60%] w-10 h-10 sm:w-14 sm:h-14 bg-red-300 opacity-50 rounded" />
+                  <div className="absolute top-[15%] left-[20%] w-12 h-12 sm:w-16 sm:h-16 bg-primary/30 opacity-50 rounded" />
+                  <div className="absolute top-[35%] left-[60%] w-10 h-10 sm:w-14 sm:h-14 bg-destructive/30 opacity-50 rounded" />
                   <div className="absolute top-[65%] left-[30%] w-14 h-14 sm:w-20 sm:h-20 bg-yellow-300 opacity-50 rounded" />
-                  <div className="absolute top-[55%] left-[70%] w-8 h-8 sm:w-12 sm:h-12 bg-purple-300 opacity-50 rounded" />
+                  <div className="absolute top-[55%] left-[70%] w-8 h-8 sm:w-12 sm:h-12 bg-accent/30 opacity-50 rounded" />
 
                   {/* Map Label */}
                   <div className="absolute top-4 left-4 bg-white/90 px-3 py-2 rounded-lg shadow-md">

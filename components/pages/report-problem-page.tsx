@@ -10,10 +10,10 @@ interface ReportProblemPageProps {
 const problemTypes = [
   { id: 1, name: "ไฟฟ้าส่องสว่างเสีย", icon: "💡", color: "bg-yellow-100" },
   { id: 2, name: "ถนนชำรุด", icon: "🛣️", color: "bg-gray-100" },
-  { id: 3, name: "ปัญหาขยะ", icon: "🗑️", color: "bg-green-100" },
-  { id: 4, name: "น้ำรั่ว", icon: "💧", color: "bg-blue-100" },
-  { id: 5, name: "เสียงดัง รบกวน", icon: "🔊", color: "bg-red-100" },
-  { id: 6, name: "อื่นๆ", icon: "❓", color: "bg-purple-100" },
+  { id: 3, name: "ปัญหาขยะ", icon: "🗑️", color: "bg-primary/10" },
+  { id: 4, name: "น้ำรั่ว", icon: "💧", color: "bg-primary/10" },
+  { id: 5, name: "เสียงดัง รบกวน", icon: "🔊", color: "bg-destructive/10" },
+  { id: 6, name: "อื่นๆ", icon: "❓", color: "bg-accent/20" },
 ]
 
 const locations = ["ส่งตำแหน่งของฉัน", "ใกล้วัดบ้านกลาง", "ศาลาหมู่บ้าน", "ตลาดหลัก", "บริเวณโรงเรียน", "ถนนหน้าวัด", "บ้านของฉัน"]
@@ -32,9 +32,9 @@ export default function ReportProblemPage({ onSubmit, onBack }: ReportProblemPag
   const isFormValid = selectedProblem && selectedLocation
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-blue-50 to-background">
+    <div className="flex flex-col min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-secondary text-white p-3 sm:p-6 flex items-center justify-between shadow-xl">
+      <div className="bg-secondary text-secondary-foreground p-3 sm:p-6 flex items-center justify-between shadow-xl">
         <button onClick={onBack} className="text-lg sm:text-3xl font-bold hover:opacity-80 transition-all min-w-14 sm:min-w-[100px] text-left">
           ← กลับ
         </button>
@@ -75,7 +75,7 @@ export default function ReportProblemPage({ onSubmit, onBack }: ReportProblemPag
                 onClick={() => setSelectedLocation(location)}
                 className={`w-full rounded-xl sm:rounded-2xl p-5 sm:p-8 font-bold text-lg sm:text-2xl transition-all border-4 text-left ${
                   selectedLocation === location
-                    ? "bg-secondary text-white border-secondary shadow-xl scale-105"
+                    ? "bg-secondary text-secondary-foreground border-secondary shadow-xl scale-105"
                     : "bg-card text-foreground border-border hover:border-secondary"
                 }`}
               >
@@ -103,7 +103,7 @@ export default function ReportProblemPage({ onSubmit, onBack }: ReportProblemPag
           disabled={!isFormValid}
           className={`w-full rounded-2xl sm:rounded-3xl p-6 sm:p-10 font-bold text-2xl sm:text-4xl shadow-2xl transition-all min-h-[90px] sm:min-h-[120px] ${
             isFormValid
-              ? "bg-secondary hover:bg-secondary/90 text-white active:scale-98"
+              ? "bg-secondary hover:bg-secondary/90 text-secondary-foreground active:scale-98"
               : "bg-muted text-muted-foreground cursor-not-allowed opacity-60"
           }`}
         >

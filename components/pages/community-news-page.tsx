@@ -85,7 +85,7 @@ export default function CommunityNewsPage({ onBack }: CommunityNewsPageProps) {
     return (
       <div className="flex flex-col min-h-screen bg-linear-to-b from-green-50 to-background">
         {/* Header */}
-        <div className="bg-accent text-white p-3 sm:p-6 flex items-center justify-between shadow-xl">
+        <div className="bg-accent text-accent-foreground p-3 sm:p-6 flex items-center justify-between shadow-xl">
           <button 
             onClick={() => setSelectedNews(null)} 
             className="text-lg sm:text-3xl font-bold hover:opacity-80 transition-all min-w-14 sm:min-w-[100px] text-left"
@@ -147,7 +147,7 @@ export default function CommunityNewsPage({ onBack }: CommunityNewsPageProps) {
   return (
     <div className="flex flex-col min-h-screen bg-linear-to-b from-green-50 to-background">
       {/* Header */}
-      <div className="bg-accent text-white p-3 sm:p-6 flex items-center justify-between shadow-xl">
+      <div className="bg-accent text-accent-foreground p-3 sm:p-6 flex items-center justify-between shadow-xl">
         <button onClick={onBack} className="text-lg sm:text-3xl font-bold hover:opacity-80 transition-all min-w-14 sm:min-w-[100px] text-left">
           ← กลับ
         </button>
@@ -186,7 +186,7 @@ export default function CommunityNewsPage({ onBack }: CommunityNewsPageProps) {
         </div>
 
         {/* Footer */}
-        <div className="max-w-3xl mx-auto w-full mt-6 sm:mt-10 bg-blue-100 rounded-2xl sm:rounded-3xl p-5 sm:p-8 border-4 border-blue-400 text-center shadow-lg">
+        <div className="max-w-3xl mx-auto w-full mt-6 sm:mt-10 bg-primary/10 rounded-2xl sm:rounded-3xl p-5 sm:p-8 border-4 border-primary/30 text-center shadow-lg">
           <p className="text-xl sm:text-3xl font-bold text-foreground leading-relaxed">ℹ️ กลับมาดูข่าวสารใหม่ๆ อีกนะคะ</p>
         </div>
       </div>

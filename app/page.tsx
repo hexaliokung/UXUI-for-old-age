@@ -131,7 +131,7 @@ export default function Page() {
         <RelativeDashboardPage
           userId={user.id}
           userName={user.name}
-          onEmergencyAlerts={() => setCurrentPage("emergency-alerts")}
+          onEmergency={() => setCurrentPage("emergency")}
           onReportIssue={() => setCurrentPage("report-issue")}
           onNews={() => setCurrentPage("news")}
           onActivities={() => setCurrentPage("activities")}

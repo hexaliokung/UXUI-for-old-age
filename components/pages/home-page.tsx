@@ -11,10 +11,9 @@ interface HomePageProps {
 
 export default function HomePage({ onEmergency, onLogin }: HomePageProps) {
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+    <div className="flex flex-col min-h-screen bg-background">
       {/* Welcome Banner */}
-      <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white p-4 sm:p-8 text-center shadow-2xl relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-pink-400/20 animate-pulse" />
+      <div className="bg-primary text-primary-foreground p-4 sm:p-8 text-center shadow-2xl">
         <div className="relative z-10">
           <h1 className="text-2xl sm:text-5xl md:text-6xl font-bold mb-1 sm:mb-3 drop-shadow-lg">ยินดีต้อนรับ ✨</h1>
           <p className="text-lg sm:text-2xl md:text-3xl font-semibold drop-shadow-md">ระบบดูแลชุมชน</p>
@@ -39,7 +38,7 @@ export default function HomePage({ onEmergency, onLogin }: HomePageProps) {
         <div className="w-full max-w-2xl">
           <Button
             onClick={onLogin}
-            className="w-full rounded-2xl sm:rounded-3xl p-4 sm:p-8 font-bold text-xl sm:text-3xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 sm:gap-4 active:scale-95 min-h-20 sm:min-h-[120px] h-auto bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0"
+            className="w-full rounded-2xl sm:rounded-3xl p-4 sm:p-8 font-bold text-xl sm:text-3xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 sm:gap-4 active:scale-95 min-h-20 sm:min-h-[120px] h-auto bg-secondary hover:bg-secondary/90 text-secondary-foreground border-0"
           >
             <span className="text-4xl sm:text-5xl">🔐</span>
             <span>เข้าสู่ระบบ / สมัครสมาชิก</span>
@@ -49,17 +48,17 @@ export default function HomePage({ onEmergency, onLogin }: HomePageProps) {
         {/* ข้อมูลติดต่อด่วน */}
         <Card className="w-full max-w-3xl border-0 shadow-2xl bg-white/80 backdrop-blur-lg">
           <CardContent className="p-5 sm:p-8">
-            <p className="text-xl sm:text-3xl font-bold text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4 sm:mb-6">📞 ข้อมูลติดต่อด่วน</p>
+            <p className="text-xl sm:text-3xl font-bold text-center text-primary mb-4 sm:mb-6">📞 ข้อมูลติดต่อด่วน</p>
             <div className="space-y-3 sm:space-y-4">
               <Card className="bg-gradient-to-br from-white to-blue-50 border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
                 <CardContent className="p-4 sm:p-6">
                   <div className="flex items-center gap-3 sm:gap-4">
-                    <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg">
+                    <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-2xl bg-primary flex items-center justify-center shadow-lg">
                       <span className="text-3xl sm:text-5xl">🚓</span>
                     </div>
                     <div className="flex-1">
                       <p className="text-lg sm:text-2xl font-bold text-gray-800">ตำรวจ</p>
-                      <p className="text-xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">191</p>
+                      <p className="text-xl sm:text-3xl font-bold text-primary">191</p>
                     </div>
                   </div>
                 </CardContent>
@@ -80,12 +79,12 @@ export default function HomePage({ onEmergency, onLogin }: HomePageProps) {
               <Card className="bg-gradient-to-br from-white to-green-50 border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
                 <CardContent className="p-4 sm:p-6">
                   <div className="flex items-center gap-3 sm:gap-4">
-                    <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-lg">
+                    <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-2xl bg-primary flex items-center justify-center shadow-lg">
                       <span className="text-3xl sm:text-5xl">🚑</span>
                     </div>
                     <div className="flex-1">
                       <p className="text-lg sm:text-2xl font-bold text-gray-800">กู้ภัย</p>
-                      <p className="text-xl sm:text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">1669</p>
+                      <p className="text-xl sm:text-3xl font-bold text-primary">1669</p>
                     </div>
                   </div>
                 </CardContent>

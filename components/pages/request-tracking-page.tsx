@@ -84,25 +84,25 @@ export default function RequestTrackingPage({ onBack, elderlyName }: RequestTrac
         )
       case "inprogress":
         return (
-          <Badge className="bg-blue-100 text-blue-800 px-3 sm:px-4 py-1 sm:py-2 text-base sm:text-xl font-bold border-2 border-blue-400">
+          <Badge className="bg-primary/10 text-primary px-3 sm:px-4 py-1 sm:py-2 text-base sm:text-xl font-bold border-2 border-primary/30">
             🔄 กำลังดำเนินการ
           </Badge>
         )
       case "approved":
         return (
-          <Badge className="bg-green-100 text-green-800 px-3 sm:px-4 py-1 sm:py-2 text-base sm:text-xl font-bold border-2 border-green-400">
+          <Badge className="bg-primary/10 text-primary px-3 sm:px-4 py-1 sm:py-2 text-base sm:text-xl font-bold border-2 border-primary/30">
             ✅ อนุมัติแล้ว
           </Badge>
         )
       case "rejected":
         return (
-          <Badge className="bg-red-100 text-red-800 px-3 sm:px-4 py-1 sm:py-2 text-base sm:text-xl font-bold border-2 border-red-400">
+          <Badge className="bg-destructive/10 text-destructive px-3 sm:px-4 py-1 sm:py-2 text-base sm:text-xl font-bold border-2 border-destructive/30">
             ❌ ไม่อนุมัติ
           </Badge>
         )
       case "completed":
         return (
-          <Badge className="bg-purple-100 text-purple-800 px-3 sm:px-4 py-1 sm:py-2 text-base sm:text-xl font-bold border-2 border-purple-400">
+          <Badge className="bg-accent/20 text-accent-foreground px-3 sm:px-4 py-1 sm:py-2 text-base sm:text-xl font-bold border-2 border-accent/30">
             ✔️ เสร็จสิ้น
           </Badge>
         )
@@ -124,9 +124,9 @@ export default function RequestTrackingPage({ onBack, elderlyName }: RequestTrac
     : mockRequests.filter(req => req.status === filter)
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-indigo-50 to-background">
+    <div className="flex flex-col min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-3 sm:p-6 shadow-2xl">
+      <div className="bg-primary text-primary-foreground p-3 sm:p-6 shadow-2xl">
         <button
           onClick={onBack}
           className="text-lg sm:text-3xl font-bold hover:opacity-80 transition-all mb-2"
@@ -152,7 +152,7 @@ export default function RequestTrackingPage({ onBack, elderlyName }: RequestTrac
               onClick={() => setFilter(tab.key as any)}
               className={`px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-bold text-base sm:text-xl transition-all whitespace-nowrap ${
                 filter === tab.key
-                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg scale-105"
+                  ? "bg-primary text-primary-foreground shadow-lg scale-105"
                   : "bg-muted text-muted-foreground hover:bg-muted/80"
               }`}
             >
@@ -176,13 +176,13 @@ export default function RequestTrackingPage({ onBack, elderlyName }: RequestTrac
                   <p className="text-sm sm:text-lg text-muted-foreground mt-1">รอดำเนินการ</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-3xl sm:text-5xl font-bold text-blue-600">
+                  <p className="text-3xl sm:text-5xl font-bold text-primary">
                     {mockRequests.filter(r => r.status === "inprogress").length}
                   </p>
                   <p className="text-sm sm:text-lg text-muted-foreground mt-1">กำลังดำเนินการ</p>
                 </div>
                 <div className="text-center col-span-2 sm:col-span-1">
-                  <p className="text-3xl sm:text-5xl font-bold text-green-600">
+                  <p className="text-3xl sm:text-5xl font-bold text-primary">
                     {mockRequests.filter(r => r.status === "completed" || r.status === "approved").length}
                   </p>
                   <p className="text-sm sm:text-lg text-muted-foreground mt-1">เสร็จสิ้น</p>
@@ -242,12 +242,12 @@ export default function RequestTrackingPage({ onBack, elderlyName }: RequestTrac
                     {request.respondedBy && (
                       <div className={`p-4 sm:p-5 rounded-xl border-2 ${
                         request.status === "rejected" 
-                          ? "bg-red-50 border-red-300"
+                          ? "bg-destructive/10 border-destructive/30"
                           : request.status === "completed"
-                          ? "bg-purple-50 border-purple-300"
+                          ? "bg-accent/10 border-accent/30"
                           : request.status === "approved"
-                          ? "bg-green-50 border-green-300"
-                          : "bg-blue-50 border-blue-300"
+                          ? "bg-primary/10 border-primary/30"
+                          : "bg-primary/10 border-primary/30"
                       }`}>
                         <p className="text-base sm:text-xl font-bold mb-2">
                           👤 ดำเนินการโดย: {request.respondedBy}
@@ -257,7 +257,7 @@ export default function RequestTrackingPage({ onBack, elderlyName }: RequestTrac
                         </p>
                         {request.rejectReason && (
                           <div className="mt-3 p-3 bg-white rounded-lg">
-                            <p className="text-base sm:text-xl font-bold text-red-700 mb-1">
+                            <p className="text-base sm:text-xl font-bold text-destructive mb-1">
                               เหตุผล:
                             </p>
                             <p className="text-base sm:text-lg text-foreground">
@@ -266,7 +266,7 @@ export default function RequestTrackingPage({ onBack, elderlyName }: RequestTrac
                           </div>
                         )}
                         {request.completedDate && (
-                          <p className="text-base sm:text-xl font-bold text-purple-700 mt-2">
+                          <p className="text-base sm:text-xl font-bold text-accent-foreground mt-2">
                             ✅ แก้ไขเสร็จสิ้น: {request.completedDate}
                           </p>
                         )}

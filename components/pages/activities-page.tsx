@@ -116,7 +116,7 @@ export default function ActivitiesPage({ onBack, onCreateActivity }: ActivitiesP
                   </Badge>
                 )}
                 {activity.status === "approved" && (
-                  <Badge className="bg-green-100 text-green-800 px-3 sm:px-5 py-1 sm:py-2 text-sm sm:text-xl font-bold border-2 border-green-400 hover:bg-green-100">
+                  <Badge className="bg-primary/10 text-primary px-3 sm:px-5 py-1 sm:py-2 text-sm sm:text-xl font-bold border-2 border-primary/30 hover:bg-primary/20">
                     อนุมัติแล้ว
                   </Badge>
                 )}

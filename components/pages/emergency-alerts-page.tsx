@@ -46,7 +46,7 @@ export default function EmergencyAlertsPage({ onBack }: EmergencyAlertsPageProps
     switch (status) {
       case "completed":
         return (
-          <span className="bg-green-100 text-green-800 px-3 sm:px-5 py-1 sm:py-2 rounded-full text-sm sm:text-xl font-bold border-2 border-green-400">
+          <span className="bg-primary/10 text-primary px-3 sm:px-5 py-1 sm:py-2 rounded-full text-sm sm:text-xl font-bold border-2 border-primary/30">
             เสร็จสิ้น
           </span>
         )
@@ -58,7 +58,7 @@ export default function EmergencyAlertsPage({ onBack }: EmergencyAlertsPageProps
         )
       case "received":
         return (
-          <span className="bg-blue-100 text-blue-800 px-3 sm:px-5 py-1 sm:py-2 rounded-full text-sm sm:text-xl font-bold border-2 border-blue-400">
+          <span className="bg-primary/10 text-primary px-3 sm:px-5 py-1 sm:py-2 rounded-full text-sm sm:text-xl font-bold border-2 border-primary/30">
             รับการแจ้งแล้ว
           </span>
         )
@@ -68,7 +68,7 @@ export default function EmergencyAlertsPage({ onBack }: EmergencyAlertsPageProps
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
+        <div className="flex flex-col min-h-screen bg-background">
       {/* Header */}
       <div className="bg-destructive text-destructive-foreground p-3 sm:p-6 flex items-center justify-between shadow-xl">
         <button
@@ -155,8 +155,8 @@ export default function EmergencyAlertsPage({ onBack }: EmergencyAlertsPageProps
                         </button>
                       </div>
                     )}
-                    <div className="bg-green-100 rounded-xl p-4 sm:p-6 border-2 border-green-400">
-                      <p className="text-lg sm:text-2xl font-bold text-green-800 text-center">
+                    <div className="bg-primary/10 rounded-xl p-4 sm:p-6 border-2 border-primary/30">
+                      <p className="text-lg sm:text-2xl font-bold text-primary text-center">
                         ✓ ได้รับการช่วยเหลือเรียบร้อยแล้ว
                       </p>
                     </div>

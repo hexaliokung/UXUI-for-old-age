@@ -4,82 +4,102 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Theme for elderly-friendly accessibility: warm cream background, high contrast */
-  --background: oklch(0.98 0.01 70);
-  --foreground: oklch(0.15 0 0);
+  /* Elderly-Friendly Color Palette - Based on accessibility research */
+  
+  /* Background: Warm Off-White #FAFAFA - ลดแสงจ้า */
+  --background: oklch(0.98 0.005 85);
+  
+  /* Text: Dark Grey #333333 - คมชัดสูงแต่ไม่จ้า */
+  --foreground: oklch(0.25 0 0);
+  
+  /* Card: Pure White for content areas */
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.15 0 0);
-  --popover: oklch(0.98 0.01 70);
-  --popover-foreground: oklch(0.15 0 0);
+  --card-foreground: oklch(0.25 0 0);
+  
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.25 0 0);
 
-  /* Primary emergency red */
-  --primary: oklch(0.58 0.23 27);
+  /* Primary: Deep Teal #00796B - สีหลักสำหรับปุ่มทั่วไป Header */
+  --primary: oklch(0.48 0.12 185);
   --primary-foreground: oklch(1 0 0);
 
-  /* Secondary action blue */
-  --secondary: oklch(0.54 0.15 235);
+  /* Emergency ONLY: Vibrant Coral Red #D32F2F - ใช้เฉพาะปุ่ม SOS */
+  --destructive: oklch(0.55 0.22 25);
+  --destructive-foreground: oklch(1 0 0);
+
+  /* Secondary: Soft Teal for secondary actions */
+  --secondary: oklch(0.58 0.10 185);
   --secondary-foreground: oklch(1 0 0);
 
-  /* Accent warm orange */
-  --accent: oklch(0.65 0.18 65);
-  --accent-foreground: oklch(0.15 0 0);
+  /* Accent: Warm Amber for highlights */
+  --accent: oklch(0.75 0.12 75);
+  --accent-foreground: oklch(0.25 0 0);
 
-  --muted: oklch(0.92 0.01 70);
-  --muted-foreground: oklch(0.45 0 0);
-  --destructive: oklch(0.58 0.23 27);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.88 0.01 70);
-  --input: oklch(0.95 0.01 70);
-  --ring: oklch(0.54 0.15 235);
-  --chart-1: oklch(0.54 0.15 235);
-  --chart-2: oklch(0.65 0.18 65);
-  --chart-3: oklch(0.58 0.23 27);
-  --chart-4: oklch(0.46 0.15 130);
-  --chart-5: oklch(0.62 0.12 45);
+  /* Muted: Light Grey for disabled/subtle elements */
+  --muted: oklch(0.94 0.005 85);
+  --muted-foreground: oklch(0.50 0 0);
+  
+  /* Border: Soft Grey */
+  --border: oklch(0.88 0.005 85);
+  --input: oklch(0.96 0.005 85);
+  
+  /* Ring: Teal for focus states */
+  --ring: oklch(0.48 0.12 185);
+  
+  /* Charts - Accessible color combinations */
+  --chart-1: oklch(0.48 0.12 185); /* Deep Teal */
+  --chart-2: oklch(0.65 0.15 140); /* Green */
+  --chart-3: oklch(0.60 0.18 50); /* Orange */
+  --chart-4: oklch(0.58 0.18 270); /* Purple */
+  --chart-5: oklch(0.62 0.16 220); /* Blue */
+  
   --radius: 1rem;
-  --sidebar: oklch(0.98 0.01 70);
-  --sidebar-foreground: oklch(0.15 0 0);
-  --sidebar-primary: oklch(0.58 0.23 27);
+  
+  /* Sidebar colors */
+  --sidebar: oklch(0.98 0.005 85);
+  --sidebar-foreground: oklch(0.25 0 0);
+  --sidebar-primary: oklch(0.48 0.12 185);
   --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.65 0.18 65);
-  --sidebar-accent-foreground: oklch(0.15 0 0);
-  --sidebar-border: oklch(0.88 0.01 70);
-  --sidebar-ring: oklch(0.54 0.15 235);
+  --sidebar-accent: oklch(0.75 0.12 75);
+  --sidebar-accent-foreground: oklch(0.25 0 0);
+  --sidebar-border: oklch(0.88 0.005 85);
+  --sidebar-ring: oklch(0.48 0.12 185);
 }
 
 .dark {
-  --background: oklch(0.15 0 0);
-  --foreground: oklch(0.98 0.01 70);
-  --card: oklch(0.22 0 0);
-  --card-foreground: oklch(0.98 0.01 70);
-  --popover: oklch(0.22 0 0);
-  --popover-foreground: oklch(0.98 0.01 70);
-  --primary: oklch(0.74 0.22 27);
-  --primary-foreground: oklch(0.15 0 0);
-  --secondary: oklch(0.68 0.18 235);
-  --secondary-foreground: oklch(0.15 0 0);
-  --accent: oklch(0.75 0.17 65);
-  --accent-foreground: oklch(0.15 0 0);
-  --muted: oklch(0.35 0 0);
-  --muted-foreground: oklch(0.68 0 0);
-  --destructive: oklch(0.74 0.22 27);
-  --destructive-foreground: oklch(0.15 0 0);
-  --border: oklch(0.35 0 0);
-  --input: oklch(0.35 0 0);
-  --ring: oklch(0.68 0.18 235);
-  --chart-1: oklch(0.68 0.18 235);
-  --chart-2: oklch(0.75 0.17 65);
-  --chart-3: oklch(0.74 0.22 27);
-  --chart-4: oklch(0.62 0.15 130);
-  --chart-5: oklch(0.72 0.12 45);
-  --sidebar: oklch(0.22 0 0);
-  --sidebar-foreground: oklch(0.98 0.01 70);
-  --sidebar-primary: oklch(0.74 0.22 27);
-  --sidebar-primary-foreground: oklch(0.98 0.01 70);
-  --sidebar-accent: oklch(0.75 0.17 65);
-  --sidebar-accent-foreground: oklch(0.22 0 0);
-  --sidebar-border: oklch(0.35 0 0);
-  --sidebar-ring: oklch(0.68 0.18 235);
+  /* Dark mode - optional, but kept for accessibility */
+  --background: oklch(0.20 0.005 185);
+  --foreground: oklch(0.95 0.005 85);
+  --card: oklch(0.25 0.005 185);
+  --card-foreground: oklch(0.95 0.005 85);
+  --popover: oklch(0.25 0.005 185);
+  --popover-foreground: oklch(0.95 0.005 85);
+  --primary: oklch(0.58 0.12 185);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.68 0.10 185);
+  --secondary-foreground: oklch(0.20 0 0);
+  --accent: oklch(0.80 0.12 75);
+  --accent-foreground: oklch(0.20 0 0);
+  --muted: oklch(0.30 0.005 185);
+  --muted-foreground: oklch(0.65 0.005 85);
+  --destructive: oklch(0.60 0.22 25);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.35 0.005 185);
+  --input: oklch(0.30 0.005 185);
+  --ring: oklch(0.58 0.12 185);
+  --chart-1: oklch(0.58 0.12 185);
+  --chart-2: oklch(0.70 0.15 140);
+  --chart-3: oklch(0.65 0.18 50);
+  --chart-4: oklch(0.63 0.18 270);
+  --chart-5: oklch(0.67 0.16 220);
+  --sidebar: oklch(0.25 0.005 185);
+  --sidebar-foreground: oklch(0.95 0.005 85);
+  --sidebar-primary: oklch(0.58 0.12 185);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.80 0.12 75);
+  --sidebar-accent-foreground: oklch(0.25 0 0);
+  --sidebar-border: oklch(0.35 0.005 185);
+  --sidebar-ring: oklch(0.58 0.12 185);
 }
 
 @theme inline {
