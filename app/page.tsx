@@ -7,6 +7,8 @@ import MemberDashboardPage from "@/components/pages/member-dashboard-page"
 import RelativeDashboardPage from "@/components/pages/relative-dashboard-page"
 import EmergencyHelpPage from "@/components/pages/emergency-help-page"
 import EmergencyAlertsPage from "@/components/pages/emergency-alerts-page"
+import RequestTrackingPage from "@/components/pages/request-tracking-page"
+import NotificationSettingsPage from "@/components/pages/notification-settings-page"
 import ReportProblemPage from "@/components/pages/report-problem-page"
 import CommunityNewsPage from "@/components/pages/community-news-page"
 import ActivitiesPage from "@/components/pages/activities-page"
@@ -27,11 +29,14 @@ type PageType =
   | "login"
   | "emergency"
   | "report"
+  | "report-issue"
   | "news"
   | "confirmation"
   | "member-dashboard"
   | "relative-dashboard"
   | "emergency-alerts"
+  | "request-tracking"
+  | "notification-settings"
   | "activities"
   | "create-activity"
   | "settings"
@@ -130,6 +135,8 @@ export default function Page() {
           onReportIssue={() => setCurrentPage("report-issue")}
           onNews={() => setCurrentPage("news")}
           onActivities={() => setCurrentPage("activities")}
+          onRequestTracking={() => setCurrentPage("request-tracking")}
+          onNotificationSettings={() => setCurrentPage("notification-settings")}
           onSettings={() => setCurrentPage("settings")}
         />
       )}
@@ -145,6 +152,18 @@ export default function Page() {
         )}
         {currentPage === "emergency-alerts" && (
           <EmergencyAlertsPage onBack={() => setCurrentPage("relative-dashboard")} />
+        )}
+        {currentPage === "request-tracking" && user && (
+          <RequestTrackingPage 
+            onBack={() => setCurrentPage("relative-dashboard")} 
+            elderlyName={"สมชาย วิมล"}
+          />
+        )}
+        {currentPage === "notification-settings" && user && (
+          <NotificationSettingsPage 
+            onBack={() => setCurrentPage("relative-dashboard")} 
+            userName={user.name}
+          />
         )}
         {currentPage === "report" && (
           <ReportProblemPage onSubmit={handleReportSubmit} onBack={handleBackToDashboard} />

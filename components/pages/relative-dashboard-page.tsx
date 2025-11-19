@@ -12,6 +12,8 @@ interface RelativeDashboardPageProps {
   onReportIssue: () => void
   onNews: () => void
   onActivities: () => void
+  onRequestTracking: () => void
+  onNotificationSettings: () => void
   onSettings: () => void
 }
 
@@ -22,6 +24,8 @@ export default function RelativeDashboardPage({
   onReportIssue,
   onNews,
   onActivities,
+  onRequestTracking,
+  onNotificationSettings,
   onSettings,
 }: RelativeDashboardPageProps) {
   const [elderlyList, setElderlyList] = useState<Array<{
@@ -101,6 +105,30 @@ export default function RelativeDashboardPage({
 
           {/* เมนูหลัก */}
           <div className="grid grid-cols-2 gap-4 sm:gap-6">
+            {/* ติดตามสถานะคำร้อง */}
+            <button
+              onClick={onRequestTracking}
+              className="bg-gradient-to-br from-indigo-400 to-purple-600 hover:from-indigo-500 hover:to-purple-700 text-white rounded-2xl p-5 sm:p-8 font-bold text-lg sm:text-2xl shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col items-center gap-3 sm:gap-4 border-0 active:scale-95 min-h-[140px] sm:min-h-[180px] relative overflow-hidden group"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center relative z-10">
+                <span className="text-5xl sm:text-7xl">📋</span>
+              </div>
+              <span className="text-center leading-tight relative z-10">ติดตามสถานะคำร้อง</span>
+            </button>
+
+            {/* ตั้งค่าการแจ้งเตือน */}
+            <button
+              onClick={onNotificationSettings}
+              className="bg-gradient-to-br from-green-400 to-teal-600 hover:from-green-500 hover:to-teal-700 text-white rounded-2xl p-5 sm:p-8 font-bold text-lg sm:text-2xl shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col items-center gap-3 sm:gap-4 border-0 active:scale-95 min-h-[140px] sm:min-h-[180px] relative overflow-hidden group"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center relative z-10">
+                <span className="text-5xl sm:text-7xl">🔔</span>
+              </div>
+              <span className="text-center leading-tight relative z-10">ตั้งค่าการแจ้งเตือน</span>
+            </button>
+
             {/* การแจ้งเตือนฉุกเฉิน */}
             <button
               onClick={onEmergencyAlerts}
