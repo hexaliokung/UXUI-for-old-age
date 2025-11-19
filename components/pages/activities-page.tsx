@@ -1,6 +1,9 @@
 "use client"
 
 import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 
 interface ActivitiesPageProps {
   onBack: () => void
@@ -88,33 +91,34 @@ export default function ActivitiesPage({ onBack, onCreateActivity }: ActivitiesP
       <div className="flex-1 p-4 sm:p-8 overflow-y-auto">
         <div className="max-w-4xl mx-auto space-y-5 sm:space-y-6">
           {/* Create Button */}
-          <button
+          <Button
             onClick={onCreateActivity}
-            className="w-full bg-accent hover:bg-accent/90 text-accent-foreground rounded-2xl p-5 sm:p-8 font-bold text-xl sm:text-3xl shadow-xl transition-all flex items-center justify-center gap-3 sm:gap-5 border-4 border-accent/30 active:scale-98"
+            className="w-full bg-accent hover:bg-accent/90 text-accent-foreground rounded-2xl p-5 sm:p-8 font-bold text-xl sm:text-3xl shadow-xl transition-all flex items-center justify-center gap-3 sm:gap-5 border-4 border-accent/30 active:scale-98 h-auto"
           >
             <span className="text-4xl sm:text-6xl">➕</span>
             <span>สร้างกิจกรรมใหม่</span>
-          </button>
+          </Button>
 
           {/* Activities List */}
           {activities.map((activity) => (
-            <div
+            <Card
               key={activity.id}
-              className="bg-card rounded-2xl p-5 sm:p-8 border-4 border-border shadow-lg hover:shadow-xl transition-all"
+              className="border-4 shadow-lg hover:shadow-xl transition-all"
             >
+              <CardContent className="p-5 sm:p-8">
               <div className="flex items-start justify-between mb-3 sm:mb-4">
                 <h3 className="text-xl sm:text-3xl font-bold text-foreground flex-1">
                   {activity.title}
                 </h3>
                 {activity.status === "pending" && (
-                  <span className="bg-yellow-100 text-yellow-800 px-3 sm:px-5 py-1 sm:py-2 rounded-full text-sm sm:text-xl font-bold border-2 border-yellow-400">
+                  <Badge className="bg-yellow-100 text-yellow-800 px-3 sm:px-5 py-1 sm:py-2 text-sm sm:text-xl font-bold border-2 border-yellow-400 hover:bg-yellow-100">
                     รออนุมัติ
-                  </span>
+                  </Badge>
                 )}
                 {activity.status === "approved" && (
-                  <span className="bg-green-100 text-green-800 px-3 sm:px-5 py-1 sm:py-2 rounded-full text-sm sm:text-xl font-bold border-2 border-green-400">
+                  <Badge className="bg-green-100 text-green-800 px-3 sm:px-5 py-1 sm:py-2 text-sm sm:text-xl font-bold border-2 border-green-400 hover:bg-green-100">
                     อนุมัติแล้ว
-                  </span>
+                  </Badge>
                 )}
               </div>
               <div className="space-y-2 sm:space-y-3 text-base sm:text-2xl text-muted-foreground">
@@ -131,7 +135,8 @@ export default function ActivitiesPage({ onBack, onCreateActivity }: ActivitiesP
                   <span>โดย: {activity.creator}</span>
                 </p>
               </div>
-            </div>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>

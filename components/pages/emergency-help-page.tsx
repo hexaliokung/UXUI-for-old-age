@@ -1,6 +1,9 @@
 "use client"
 
 import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 
 interface EmergencyHelpPageProps {
   onSubmit: () => void
@@ -48,13 +51,14 @@ export default function EmergencyHelpPage({ onSubmit, onBack }: EmergencyHelpPag
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-red-50 to-background">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-red-50 via-pink-50 to-orange-50">
       {/* Header */}
-      <div className="bg-destructive text-white p-3 sm:p-6 flex items-center justify-between shadow-xl">
-        <button onClick={onBack} className="text-lg sm:text-3xl font-bold hover:opacity-80 transition-all min-w-14 sm:min-w-[100px] text-left">
+      <div className="bg-gradient-to-r from-red-600 via-pink-600 to-orange-600 text-white p-3 sm:p-6 flex items-center justify-between shadow-2xl relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 animate-pulse" />
+        <button onClick={onBack} className="text-lg sm:text-3xl font-bold hover:opacity-80 transition-all min-w-14 sm:min-w-[100px] text-left relative z-10 hover:scale-110 duration-300">
           ← กลับ
         </button>
-        <h1 className="text-base sm:text-3xl md:text-4xl font-bold text-center leading-tight px-2">ขอความช่วยเหลือฉุกเฉิน</h1>
+        <h1 className="text-base sm:text-3xl md:text-4xl font-bold text-center leading-tight px-2 relative z-10 drop-shadow-lg">ขอความช่วยเหลือฉุกเฉิน</h1>
         <div className="w-14 sm:w-[100px]" />
       </div>
 
@@ -99,7 +103,7 @@ export default function EmergencyHelpPage({ onSubmit, onBack }: EmergencyHelpPag
             />
             <label
               htmlFor="image-upload"
-              className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground rounded-2xl p-5 sm:p-8 font-bold text-xl sm:text-3xl shadow-xl transition-all flex items-center justify-center gap-3 sm:gap-5 border-4 border-secondary/30 cursor-pointer active:scale-98 min-h-[90px] sm:min-h-[120px]"
+              className="block w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white rounded-2xl p-5 sm:p-8 font-bold text-xl sm:text-3xl shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-3 sm:gap-5 border-0 cursor-pointer active:scale-95 min-h-[90px] sm:min-h-[120px]"
             >
               <span className="text-4xl sm:text-6xl">📷</span>
               <span>แนบรูปภาพ</span>
@@ -109,10 +113,10 @@ export default function EmergencyHelpPage({ onSubmit, onBack }: EmergencyHelpPag
           {/* ปุ่มบันทึกเสียง */}
           <button
             onClick={handleVoiceRecord}
-            className={`w-full rounded-2xl p-5 sm:p-8 font-bold text-xl sm:text-3xl shadow-xl transition-all flex items-center justify-center gap-3 sm:gap-5 border-4 active:scale-98 min-h-[90px] sm:min-h-[120px] ${
+            className={`w-full rounded-2xl p-5 sm:p-8 font-bold text-xl sm:text-3xl shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-3 sm:gap-5 border-0 active:scale-95 min-h-[90px] sm:min-h-[120px] ${
               isRecording
-                ? "bg-destructive text-white border-destructive animate-pulse"
-                : "bg-accent hover:bg-accent/90 text-accent-foreground border-accent/30"
+                ? "bg-gradient-to-r from-red-500 to-pink-600 text-white animate-pulse"
+                : "bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 text-white"
             }`}
           >
             <span className="text-4xl sm:text-6xl">🎤</span>
@@ -120,20 +124,22 @@ export default function EmergencyHelpPage({ onSubmit, onBack }: EmergencyHelpPag
           </button>
 
           {/* ปุ่มส่งความช่วยเหลือ - ใหญ่สุด สีแดง */}
-          <button
+          <Button
             onClick={handleSendHelp}
-            className="w-full bg-destructive hover:bg-destructive/90 text-white rounded-2xl sm:rounded-3xl p-6 sm:p-12 font-bold text-2xl sm:text-4xl shadow-2xl transition-all flex items-center justify-center gap-4 sm:gap-6 border-4 border-destructive/20 active:scale-98 min-h-[120px] sm:min-h-[180px] animate-pulse"
+            variant="destructive"
+            className="w-full rounded-2xl sm:rounded-3xl p-6 sm:p-12 font-bold text-2xl sm:text-4xl shadow-2xl transition-all flex items-center justify-center gap-4 sm:gap-6 border-4 border-destructive/20 active:scale-98 min-h-[120px] sm:min-h-[180px] animate-pulse h-auto"
           >
             <span className="text-5xl sm:text-7xl">🆘</span>
             <span>ส่งความช่วยเหลือ</span>
-          </button>
+          </Button>
         </div>
       </div>
 
       {/* Confirmation Dialog */}
       {showConfirmDialog && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-10 max-w-2xl w-full shadow-2xl border-4 border-destructive">
+          <Card className="max-w-2xl w-full shadow-2xl border-4 border-destructive">
+            <CardContent className="p-6 sm:p-10">
             <div className="text-center mb-6 sm:mb-8">
               <div className="text-6xl sm:text-8xl mb-4">⚠️</div>
               <h2 className="text-2xl sm:text-4xl font-bold text-foreground mb-4">
@@ -144,20 +150,23 @@ export default function EmergencyHelpPage({ onSubmit, onBack }: EmergencyHelpPag
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-              <button
+              <Button
                 onClick={handleConfirm}
-                className="flex-1 bg-destructive hover:bg-destructive/90 text-white rounded-xl sm:rounded-2xl p-5 sm:p-8 font-bold text-xl sm:text-3xl shadow-xl transition-all active:scale-98"
+                variant="destructive"
+                className="flex-1 rounded-xl sm:rounded-2xl p-5 sm:p-8 font-bold text-xl sm:text-3xl shadow-xl transition-all active:scale-98 h-auto"
               >
                 ✓ ยืนยัน
-              </button>
-              <button
+              </Button>
+              <Button
                 onClick={handleCancel}
-                className="flex-1 bg-muted hover:bg-muted/80 text-foreground rounded-xl sm:rounded-2xl p-5 sm:p-8 font-bold text-xl sm:text-3xl shadow-xl transition-all active:scale-98"
+                variant="outline"
+                className="flex-1 rounded-xl sm:rounded-2xl p-5 sm:p-8 font-bold text-xl sm:text-3xl shadow-xl transition-all active:scale-98 h-auto"
               >
                 ✕ ยกเลิก
-              </button>
+              </Button>
             </div>
-          </div>
+            </CardContent>
+          </Card>
         </div>
       )}
     </div>
