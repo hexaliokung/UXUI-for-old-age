@@ -1,12 +1,16 @@
 "use client"
 
 import { useState } from "react"
-import LoginPage from "@/components/pages/login-page"
 import HomePage from "@/components/pages/home-page"
+import LoginPage from "@/components/pages/login-page"
 import EmergencyHelpPage from "@/components/pages/emergency-help-page"
 import ReportProblemPage from "@/components/pages/report-problem-page"
 import CommunityNewsPage from "@/components/pages/community-news-page"
 import ConfirmationPage from "@/components/pages/confirmation-page"
+import MemberDashboardPage from "@/components/pages/member-dashboard-page"
+import ActivitiesPage from "@/components/pages/activities-page"
+import CreateActivityPage from "@/components/pages/create-activity-page"
+import SettingsPage from "@/components/pages/settings-page"
 
 interface UserSession {
   id: string
@@ -14,16 +18,27 @@ interface UserSession {
   phoneNumber: string
 }
 
+type PageType =
+  | "home"
+  | "login"
+  | "emergency"
+  | "report"
+  | "news"
+  | "confirmation"
+  | "member-dashboard"
+  | "activities"
+  | "create-activity"
+  | "settings"
+
 export default function Page() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [user, setUser] = useState<UserSession | null>(null)
-  const [currentPage, setCurrentPage] = useState<"home" | "emergency" | "report" | "news" | "confirmation">("home")
-  const [confirmationMessage, setConfirmationMessage] = useState("")
-  const [confirmationIcon, setConfirmationIcon] = useState("✅")
+  const [currentPage, setCurrentPage] = useState<PageType>("home")
 
   const handleLogin = (userId: string, name: string, phoneNumber: string) => {
     setUser({ id: userId, name, phoneNumber })
     setIsLoggedIn(true)
+    setCurrentPage("member-dashboard")
   }
 
   const handleLogout = () => {
@@ -33,14 +48,14 @@ export default function Page() {
   }
 
   const handleEmergencySubmit = () => {
-    setConfirmationMessage("Help is on the way! 🚨")
-    setConfirmationIcon("✅")
     setCurrentPage("confirmation")
   }
 
   const handleReportSubmit = () => {
-    setConfirmationMessage("Your report has been sent. Thank you! 📋")
-    setConfirmationIcon("✅")
+    setCurrentPage("confirmation")
+  }
+
+  const handleActivitySubmit = () => {
     setCurrentPage("confirmation")
   }
 
@@ -48,49 +63,90 @@ export default function Page() {
     setCurrentPage("home")
   }
 
-  if (!isLoggedIn || !user) {
+  const handleBackToDashboard = () => {
+    if (isLoggedIn) {
+      setCurrentPage("member-dashboard")
+    } else {
+      setCurrentPage("home")
+    }
+  }
+
+  // หน้าแรกสำหรับผู้ใช้ที่ยังไม่ได้ล็อกอิน (Guest Mode)
+  if (currentPage === "home" && !isLoggedIn) {
+    return (
+      <HomePage
+        onEmergency={() => setCurrentPage("emergency")}
+        onLogin={() => setCurrentPage("login")}
+      />
+    )
+  }
+
+  // หน้าล็อกอิน
+  if (currentPage === "login") {
     return <LoginPage onLoginSuccess={handleLogin} />
   }
 
-  return (
-    <main className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="bg-card border-b-3 border-border shadow-md sticky top-0 z-50">
-        <div className="px-4 py-4 flex items-center justify-between max-w-4xl mx-auto">
-          <div className="flex items-center gap-3">
-            <span className="text-4xl">🏘️</span>
-            <div>
-              <h1 className="text-2xl font-bold text-foreground">Village Care Connect</h1>
-              <p className="text-lg text-primary font-semibold">👋 {user.name}</p>
-            </div>
-          </div>
-          <button
-            onClick={handleLogout}
-            className="px-5 py-2 text-lg font-bold bg-destructive hover:bg-destructive/90 text-destructive-foreground rounded-lg transition-all active:scale-95 shadow-md"
-          >
-            Logout
-          </button>
-        </div>
-      </header>
+  // หน้าฉุกเฉิน (ใช้ได้ทั้งแบบล็อกอินและไม่ล็อกอิน)
+  if (currentPage === "emergency") {
+    return (
+      <EmergencyHelpPage
+        onSubmit={handleEmergencySubmit}
+        onBack={isLoggedIn ? handleBackToDashboard : handleBackToHome}
+      />
+    )
+  }
 
-      {/* Main Content */}
-      <div className="max-w-4xl mx-auto">
-        {currentPage === "home" && (
-          <HomePage
+  // หน้ายืนยัน
+  if (currentPage === "confirmation") {
+    return (
+      <ConfirmationPage
+        onBack={isLoggedIn ? handleBackToDashboard : handleBackToHome}
+      />
+    )
+  }
+
+  // ระบบสำหรับสมาชิกที่ล็อกอินแล้ว
+  if (isLoggedIn && user) {
+    return (
+      <main className="min-h-screen bg-background">
+        {currentPage === "member-dashboard" && (
+          <MemberDashboardPage
+            userName={user.name}
             onEmergency={() => setCurrentPage("emergency")}
-            onReport={() => setCurrentPage("report")}
+            onReportIssue={() => setCurrentPage("report")}
             onNews={() => setCurrentPage("news")}
+            onActivities={() => setCurrentPage("activities")}
+            onSettings={() => setCurrentPage("settings")}
           />
         )}
-        {currentPage === "emergency" && (
-          <EmergencyHelpPage onSubmit={handleEmergencySubmit} onBack={handleBackToHome} />
+        {currentPage === "report" && (
+          <ReportProblemPage onSubmit={handleReportSubmit} onBack={handleBackToDashboard} />
         )}
-        {currentPage === "report" && <ReportProblemPage onSubmit={handleReportSubmit} onBack={handleBackToHome} />}
-        {currentPage === "news" && <CommunityNewsPage onBack={handleBackToHome} />}
-        {currentPage === "confirmation" && (
-          <ConfirmationPage message={confirmationMessage} icon={confirmationIcon} onBack={handleBackToHome} />
+        {currentPage === "news" && <CommunityNewsPage onBack={handleBackToDashboard} />}
+        {currentPage === "activities" && (
+          <ActivitiesPage
+            onBack={handleBackToDashboard}
+            onCreateActivity={() => setCurrentPage("create-activity")}
+          />
         )}
-      </div>
-    </main>
-  )
+        {currentPage === "create-activity" && (
+          <CreateActivityPage
+            onSubmit={handleActivitySubmit}
+            onBack={() => setCurrentPage("activities")}
+          />
+        )}
+        {currentPage === "settings" && (
+          <SettingsPage
+            userName={user.name}
+            userPhone={user.phoneNumber}
+            onBack={handleBackToDashboard}
+            onLogout={handleLogout}
+          />
+        )}
+      </main>
+    )
+  }
+
+  // Default fallback
+  return <HomePage onEmergency={() => setCurrentPage("emergency")} onLogin={() => setCurrentPage("login")} />
 }

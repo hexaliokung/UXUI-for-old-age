@@ -7,22 +7,44 @@ interface EmergencyHelpPageProps {
   onBack: () => void
 }
 
-const emergencyContacts = [
-  { id: 1, name: "ลูกสาว: พริม", phone: "081-234-5678", icon: "👩‍🦰" },
-  { id: 2, name: "เพื่อนบ้าน: มานะ", phone: "081-987-6543", icon: "👨‍🌾" },
-  { id: 3, name: "กำนันหมู่บ้าน", phone: "081-555-1234", icon: "👔" },
-  { id: 4, name: "หมอ: สมชาย", phone: "081-111-9876", icon: "⚕️" },
-]
-
 export default function EmergencyHelpPage({ onSubmit, onBack }: EmergencyHelpPageProps) {
-  const [sosPressed, setSosPressed] = useState(false)
-  const [selectedContact, setSelectedContact] = useState<number | null>(null)
+  const [message, setMessage] = useState("")
+  const [image, setImage] = useState<string | null>(null)
+  const [isRecording, setIsRecording] = useState(false)
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false)
 
-  const handleSOSClick = () => {
-    setSosPressed(true)
-    setTimeout(() => {
-      onSubmit()
-    }, 1000)
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setImage(reader.result as string)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
+  const handleVoiceRecord = () => {
+    setIsRecording(!isRecording)
+    // จำลองการบันทึกเสียง
+    if (!isRecording) {
+      setTimeout(() => {
+        setIsRecording(false)
+      }, 3000)
+    }
+  }
+
+  const handleSendHelp = () => {
+    setShowConfirmDialog(true)
+  }
+
+  const handleConfirm = () => {
+    setShowConfirmDialog(false)
+    onSubmit()
+  }
+
+  const handleCancel = () => {
+    setShowConfirmDialog(false)
   }
 
   return (
@@ -37,57 +59,107 @@ export default function EmergencyHelpPage({ onSubmit, onBack }: EmergencyHelpPag
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8 gap-5 sm:gap-10 md:p-12">
-        {/* Big SOS Button */}
-        <div className="text-center">
-          <p className="text-xl sm:text-4xl font-bold mb-4 sm:mb-8 text-foreground leading-tight px-2">กดปุ่มเพื่อขอความช่วยเหลือ</p>
+      <div className="flex-1 p-4 sm:p-8 overflow-y-auto">
+        <div className="max-w-3xl mx-auto space-y-5 sm:space-y-8">
+          {/* ช่องกรอกข้อความ */}
+          <div>
+            <label className="block text-xl sm:text-3xl font-bold text-foreground mb-3 sm:mb-4">
+              📝 เกิดเหตุฉุกเฉินที่...
+            </label>
+            <textarea
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="พิมพ์ข้อความสั้นๆ บอกเหตุการณ์"
+              rows={4}
+              className="w-full px-4 sm:px-6 py-4 sm:py-6 text-lg sm:text-2xl border-4 border-border rounded-2xl bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-destructive focus:ring-4 focus:ring-destructive/30 transition-all resize-none"
+            />
+          </div>
+
+          {/* แสดงรูปภาพที่แนบ */}
+          {image && (
+            <div className="relative">
+              <img src={image} alt="แนบรูปภาพ" className="w-full rounded-2xl border-4 border-border" />
+              <button
+                onClick={() => setImage(null)}
+                className="absolute top-2 right-2 bg-destructive text-white rounded-full w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center font-bold text-xl sm:text-2xl shadow-lg"
+              >
+                ×
+              </button>
+            </div>
+          )}
+
+          {/* ปุ่มแนบรูปภาพ */}
+          <div>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+              id="image-upload"
+            />
+            <label
+              htmlFor="image-upload"
+              className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground rounded-2xl p-5 sm:p-8 font-bold text-xl sm:text-3xl shadow-xl transition-all flex items-center justify-center gap-3 sm:gap-5 border-4 border-secondary/30 cursor-pointer active:scale-98 min-h-[90px] sm:min-h-[120px]"
+            >
+              <span className="text-4xl sm:text-6xl">📷</span>
+              <span>แนบรูปภาพ</span>
+            </label>
+          </div>
+
+          {/* ปุ่มบันทึกเสียง */}
           <button
-            onClick={handleSOSClick}
-            className={`w-36 h-36 sm:w-56 sm:h-56 rounded-full font-bold text-4xl sm:text-6xl shadow-2xl transition-all duration-200 transform hover:scale-110 border-8 ${
-              sosPressed ? "bg-green-500 text-white scale-110 border-green-600" : "bg-destructive hover:bg-destructive/90 text-white border-destructive-foreground/20 animate-pulse"
+            onClick={handleVoiceRecord}
+            className={`w-full rounded-2xl p-5 sm:p-8 font-bold text-xl sm:text-3xl shadow-xl transition-all flex items-center justify-center gap-3 sm:gap-5 border-4 active:scale-98 min-h-[90px] sm:min-h-[120px] ${
+              isRecording
+                ? "bg-destructive text-white border-destructive animate-pulse"
+                : "bg-accent hover:bg-accent/90 text-accent-foreground border-accent/30"
             }`}
           >
-            {sosPressed ? "✅" : "SOS"}
+            <span className="text-4xl sm:text-6xl">🎤</span>
+            <span>{isRecording ? "กำลังบันทึก..." : "บันทึกเสียง"}</span>
+          </button>
+
+          {/* ปุ่มส่งความช่วยเหลือ - ใหญ่สุด สีแดง */}
+          <button
+            onClick={handleSendHelp}
+            className="w-full bg-destructive hover:bg-destructive/90 text-white rounded-2xl sm:rounded-3xl p-6 sm:p-12 font-bold text-2xl sm:text-4xl shadow-2xl transition-all flex items-center justify-center gap-4 sm:gap-6 border-4 border-destructive/20 active:scale-98 min-h-[120px] sm:min-h-[180px] animate-pulse"
+          >
+            <span className="text-5xl sm:text-7xl">🆘</span>
+            <span>ส่งความช่วยเหลือ</span>
           </button>
         </div>
+      </div>
 
-        {!sosPressed && (
-          <>
-            {/* Emergency Contacts */}
-            <div className="w-full max-w-2xl">
-              <p className="text-2xl sm:text-4xl font-bold mb-3 sm:mb-6 text-foreground text-center">ติดต่อด่วน</p>
-              <div className="space-y-3 sm:space-y-5">
-                {emergencyContacts.map((contact) => (
-                  <button
-                    key={contact.id}
-                    onClick={() => setSelectedContact(contact.id)}
-                    className={`w-full rounded-xl sm:rounded-2xl p-4 sm:p-8 font-bold text-lg sm:text-2xl transition-all shadow-xl border-4 ${
-                      selectedContact === contact.id
-                        ? "bg-primary text-white border-primary scale-105"
-                        : "bg-card text-foreground border-border hover:border-primary"
-                    }`}
-                  >
-                    <div className="flex items-center gap-3 sm:gap-6">
-                      <span className="text-4xl sm:text-6xl">{contact.icon}</span>
-                      <div className="text-left flex-1 min-w-0">
-                        <p className="font-bold text-xl sm:text-3xl mb-1 sm:mb-2 truncate">{contact.name}</p>
-                        <p className="text-lg sm:text-2xl opacity-90">{contact.phone}</p>
-                      </div>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Info Box */}
-            <div className="w-full max-w-2xl bg-yellow-100 rounded-2xl sm:rounded-3xl p-5 sm:p-8 border-4 border-yellow-400 shadow-lg">
-              <p className="text-center text-xl sm:text-3xl font-bold text-foreground leading-relaxed">
-                ⚠️ กดปุ่ม SOS เพื่อแจ้งเหตุฉุกเฉิน
+      {/* Confirmation Dialog */}
+      {showConfirmDialog && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-10 max-w-2xl w-full shadow-2xl border-4 border-destructive">
+            <div className="text-center mb-6 sm:mb-8">
+              <div className="text-6xl sm:text-8xl mb-4">⚠️</div>
+              <h2 className="text-2xl sm:text-4xl font-bold text-foreground mb-4">
+                คุณแน่ใจหรือไม่?
+              </h2>
+              <p className="text-xl sm:text-2xl text-muted-foreground">
+                ต้องการส่งความช่วยเหลือฉุกเฉิน
               </p>
             </div>
-          </>
-        )}
-      </div>
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+              <button
+                onClick={handleConfirm}
+                className="flex-1 bg-destructive hover:bg-destructive/90 text-white rounded-xl sm:rounded-2xl p-5 sm:p-8 font-bold text-xl sm:text-3xl shadow-xl transition-all active:scale-98"
+              >
+                ✓ ยืนยัน
+              </button>
+              <button
+                onClick={handleCancel}
+                className="flex-1 bg-muted hover:bg-muted/80 text-foreground rounded-xl sm:rounded-2xl p-5 sm:p-8 font-bold text-xl sm:text-3xl shadow-xl transition-all active:scale-98"
+              >
+                ✕ ยกเลิก
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
